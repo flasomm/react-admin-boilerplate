@@ -1,0 +1,24 @@
+{
+  "name": "react-starter-boilerplate",
+  "version": "0.1.0",
+  "description": "React starter kit with webpack v4, react router v4, code splitting and more",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flasomm/react-starter-boilerplate.git"
+  },
+  "keywords": [
+    "webpack4",
+    "reactjs",
+    "react-router4"
+  ],
+  "author": "Fabrice Sommavilla <fs@physalix.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flasomm/react-starter-boilerplate/issues"
+  },
+  "homepage": "https://github.com/flasomm/react-starter-boilerplate#readme"
+}
