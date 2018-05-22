@@ -16,21 +16,21 @@ const config = require('config');
 
 export default class AuthActions {
 
-    static loginSuccess() {
+    loginSuccess() {
         return {
             value: res,
             type: LOGIN_SUCCESS
         };
     }
 
-    static loginFail(status) {
+    loginFail(status) {
         return {
             type: LOGIN_FAILURE,
             status: status
         };
     }
 
-    static loginRequest() {
+    loginRequest() {
         return {
             type: LOGIN
         };
@@ -42,7 +42,7 @@ export default class AuthActions {
 
     static login(email, password) {
         return dispatch => new Promise(resolve => {
-            dispatch(loginRequest());
+            dispatch(this.loginRequest());
 
             fetch(`${config.api.host}:${config.api.port}/signin`, {
                 method: 'POST',
@@ -59,11 +59,11 @@ export default class AuthActions {
             })
                 .then(response => {
                     if (response.status !== 200) {
-                        dispatch(loginFail(response.status));
+                        dispatch(this.loginFail(response.status));
                         return;
                     }
                     response.json().then(value => {
-                        dispatch(loginSuccess(value));
+                        dispatch(this.loginSuccess(value));
                         resolve(value);
                     });
                 });

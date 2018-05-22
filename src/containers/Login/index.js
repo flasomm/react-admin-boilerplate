@@ -11,7 +11,7 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import {Grid, Form, FormControl, FormGroup, ControlLabel, Col, Row} from 'react-bootstrap';
-import {session} from 'actions';
+import {auth} from 'actions/auth';
 import styles from './styles.css';
 
 /**
@@ -20,7 +20,7 @@ import styles from './styles.css';
 class Login extends Component {
     static propTypes = {
         app: PropTypes.object,
-        sessionActions: PropTypes.object,
+        authActions: PropTypes.object,
         history: PropTypes.object,
         dispatch: PropTypes.func
     };
@@ -60,7 +60,7 @@ class Login extends Component {
      */
     onSubmit(e) {
         e.preventDefault();
-        this.props.sessionActions.login(this.state.email, this.state.password);
+        this.props.authActions.login(this.state.email, this.state.password);
     }
 
     /**
@@ -123,7 +123,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        sessionActions: bindActionCreators(session, dispatch),
+        authActions: bindActionCreators(session, dispatch),
         dispatch: dispatch
     };
 };

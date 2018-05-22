@@ -28,6 +28,11 @@ function notify(type, message) {
     };
 }
 
+const INITIAL_STATE = {
+    toasterMsg: null,
+    loading: false
+};
+
 export default function app(state = INITIAL_STATE, action) => {
     switch (action.type) {
 
