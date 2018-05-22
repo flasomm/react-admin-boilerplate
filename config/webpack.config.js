@@ -1,0 +1,169 @@
+const path = require('path');
+const extend = require('util')._extend;
+const webpack = require('webpack');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const CompressionPlugin = require("compression-webpack-plugin");
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+const IS_DEV = process.env.NODE_ENV === 'dev';
+
+module.exports = {
+    target: 'web',
+    mode: IS_DEV ? 'development' : 'production',
+    context: path.resolve(__dirname, '..'),
+    devtool: IS_DEV ? 'eval' : 'source-map',
+    devServer: {
+        historyApiFallback: true,
+        hot: true,
+        open: false,
+        inline: true,
+        progress: true,
+        contentBase: path.join(__dirname, "src"),
+        port: 7000
+    },
+    entry: {
+        main: './src/index.js',
+        login: './src/containers/Login/index.js',
+        dashboard: './src/containers/Dashboard/index.js'
+    },
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, '..', 'dist'),
+        chunkFilename: '[name].chunk.js'
+    },
+    module: {
+        rules: [
+            {
+                enforce: "pre",
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "eslint-loader"
+            },
+            {
+                test: /\.js[x]?$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['env', 'react', 'stage-0']
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader'
+            }, {
+                test: /\.css$/,
+                loader: 'css-loader',
+                query: {
+                    modules: true,
+                    localIdentName: '[name]__[local]___[hash:base64:5]',
+                    minimize: true
+                }
+            }
+        ]
+    },
+    node: {
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty',
+        dns: 'empty'
+    },
+    resolve: {
+        modules: [
+            path.resolve(__dirname, 'src'),
+            path.resolve(__dirname, 'src/components/containers'),
+            'node_modules'
+        ],
+        alias: {
+            src: path.resolve(__dirname, 'src'),
+            react: path.join(__dirname, 'node_modules', 'react'),
+            configureStore: path.resolve(__dirname, 'src/store/configureStore'),
+            components: 'src/components',
+            containers: 'src/containers',
+            middleware: 'src/middleware',
+            actions: 'src/actions',
+            reducers: 'src/reducers',
+            shared: 'src/shared',
+            routes: 'src/routes',
+            assets: 'src/assets',
+            utils: 'src/utils'
+        },
+        extensions: ['.js', '.json']
+    },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true,
+                uglifyOptions: {
+                    compress: false,
+                    ecma: 6,
+                    mangle: true
+                },
+                sourceMap: true
+            })
+        ],
+        splitChunks: {
+            chunks: "async",
+            minSize: 30000,
+            minChunks: 1,
+            maxAsyncRequests: 10,
+            maxInitialRequests: 5,
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    name: 'vendors',
+                    chunks: 'all',
+                    reuseExistingChunk: true,
+                    priority: 1,
+                    enforce: true,
+                    test: /[\\/]node_modules[\\/]/
+                },
+                login: {
+                    name: 'login',
+                    chunks: 'all',
+                    priority: 3,
+                    enforce: true,
+                    reuseExistingChunk: true,
+                    test(module, chunks) {
+                        return chunks.some(chunk => chunk.name === 'login');
+                    }
+                },
+                dashboard: {
+                    name: 'dashboard',
+                    chunks: 'all',
+                    priority: 4,
+                    enforce: true,
+                    reuseExistingChunk: true,
+                    test(module, chunks) {
+                        return chunks.some(chunk => chunk.name === 'dashboard');
+                    }
+                }
+            }
+        }
+    },
+    plugins: [
+        //new BundleAnalyzerPlugin(),
+        new DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        }),
+        new webpack.HotModuleReplacementPlugin(),
+        new HTMLWebpackPlugin({
+            template: "./src/index.tpl.html",
+            inject: 'body',
+            filename: "index.html"
+        }),
+        new CompressionPlugin({
+            test: /\.js/,
+            cache: !IS_DEV
+        })
+    ],
+    externals: {
+        config: JSON.stringify(extend(require('./default.json'), require(`./${process.env.NODE_ENV}.json`)))
+    }
+};
