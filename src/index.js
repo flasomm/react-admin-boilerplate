@@ -13,7 +13,7 @@ import {ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import configureStore from 'store/configureStore';
 import 'assets/css/styles.css';
-import {App} from 'containers/App';
+import App from 'containers/App';
 import routes from './routes';
 
 require('es6-promise').polyfill();

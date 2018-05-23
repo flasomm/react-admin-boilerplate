@@ -14,7 +14,7 @@ import {Auth} from 'actions/index';
 
 class PublicRoute extends Component {
     static propTypes = {
-        component: PropTypes.func.isRequired,
+        component: PropTypes.func,
         isAuthenticated: PropTypes.bool,
         isLoggedIn: PropTypes.func.isRequired
     };
@@ -57,16 +57,12 @@ class PublicRoute extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        isAuthenticated: state.auth.isAuthenticated
-    };
-}
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        isLoggedIn: () => Auth.isLoggedIn()
-    }, dispatch);
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    isLoggedIn: () => Auth.isLoggedIn()
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublicRoute);

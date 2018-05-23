@@ -57,16 +57,12 @@ class PrivateRoute extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        isAuthenticated: state.auth.isAuthenticated
-    };
-}
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        isLoggedIn: () => Auth.isLoggedIn()
-    }, dispatch);
-}
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    isLoggedIn: () => Auth.isLoggedIn()
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);

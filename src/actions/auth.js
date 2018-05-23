@@ -8,71 +8,60 @@
 import {
     LOGIN,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE,
-    LOGOUT
+    LOGIN_FAILURE
 } from 'shared/actions';
 
 const config = require('config');
 
-export default class Auth {
-    loginSuccess(res) {
-        return {
-            value: res,
-            type: LOGIN_SUCCESS
-        };
-    }
+const loginSuccess = (res) => ({
+    value: res,
+    type: LOGIN_SUCCESS
+});
 
-    loginFailure(status) {
-        return {
-            type: LOGIN_FAILURE,
-            status: status
-        };
-    }
+const loginFailure = (status) => ({
+    type: LOGIN_FAILURE,
+    status: status
+});
 
-    loginRequest() {
-        return {
-            type: LOGIN
-        };
-    }
+const loginRequest = () => ({
+    type: LOGIN
+});
 
-    static isLoggedIn() {
-        return !!sessionStorage.getItem('jwt');
-    }
+export const isLoggedIn = () => !!sessionStorage.getItem('jwt');
 
-    static login(email, password) {
-        return dispatch => new Promise(resolve => {
-            dispatch(this.loginRequest());
+export const login = (email, password) => dispatch => new Promise(resolve => {
+    dispatch(loginRequest());
 
-            fetch(`${config.api.host}:${config.api.port}/signin`, {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                mode: 'cors',
-                cache: 'default',
-                body: JSON.stringify({
-                    email,
-                    password
-                })
-            })
-                .then(response => {
-                    if (response.status !== 200) {
-                        dispatch(this.loginFailure(response.status));
-                        return;
-                    }
-                    response.json().then(value => {
-                        dispatch(this.loginSuccess(value));
-                        resolve(value);
-                    });
-                });
+    fetch(`${config.api.host}:${config.api.port}/signin`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        mode: 'cors',
+        cache: 'default',
+        body: JSON.stringify({
+            email,
+            password
+        })
+    })
+        .then(response => {
+            if (response.status !== 200) {
+                dispatch(loginFailure(response.status));
+                return;
+            }
+            response.json().then(value => {
+                dispatch(loginSuccess(value));
+                resolve(value);
+            });
         });
-    }
+});
 
-    static logout() {
-        sessionStorage.clear();
-        return {
-            type: LOGOUT
-        };
-    }
-}
+/*
+ const logout = () => {
+ sessionStorage.clear();
+ return {
+ type: LOGOUT
+ };
+ };
+ */
