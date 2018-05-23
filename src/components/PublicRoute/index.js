@@ -10,8 +10,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Route, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import AuthMiddleware from 'modules/auth/middleware';
+import {Auth} from 'actions/index';
 
 class PublicRoute extends Component {
     static propTypes = {
@@ -33,40 +32,41 @@ class PublicRoute extends Component {
         }
     }
 
-    componentWillMount() {
-        if (this.props.isAuthenticated) {
-            console.log('authenticated');
-        } else {
-            console.log('not authenticated');
-        }
-    }
-
-    renderRoute() {
-        if (!this.props.isAuthenticated) {
-            React.createElement(this.props.component, this.props);
-        } else {
-            return <Redirect to={{ pathname: '/',  state: { from: this.props.location } }}/>
-        }
-    }
-
     render() {
-        return (
-            <Route {...this.props.rest} render={this.renderRoute}/>
-        );
+        const {isAuthenticated, component, ...rest} = this.props;
+        if (isAuthenticated !== null) {
+            return (
+                <Route
+                    {...rest}
+                    render={props => (
+            !isAuthenticated ? (
+              React.createElement(component, props)
+            ) : (
+              <Redirect
+                to={{
+                  pathname: '/dashboard',
+                  state: { from: props.location }
+                }}
+              />
+            )
+          )}
+                />
+            );
+        }
+        return null;
     }
-
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps(state) {
     return {
         isAuthenticated: state.auth.isAuthenticated
     };
-};
+}
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-        isLoggedIn: () => AuthMiddleware.isLoggedIn()
+        isLoggedIn: () => Auth.isLoggedIn()
     }, dispatch);
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublicRoute);

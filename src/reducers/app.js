@@ -33,9 +33,8 @@ const INITIAL_STATE = {
     loading: false
 };
 
-export default function app(state = INITIAL_STATE, action) => {
+export default function app(state = INITIAL_STATE, action) {
     switch (action.type) {
-
         case REQUEST_DENIED:
             return {toasterMsg: notify('error', action.message)};
 

@@ -14,16 +14,15 @@ import {
 
 const config = require('config');
 
-export default class AuthActions {
-
-    loginSuccess() {
+export default class Auth {
+    loginSuccess(res) {
         return {
             value: res,
             type: LOGIN_SUCCESS
         };
     }
 
-    loginFail(status) {
+    loginFailure(status) {
         return {
             type: LOGIN_FAILURE,
             status: status
@@ -36,7 +35,7 @@ export default class AuthActions {
         };
     }
 
-    static isAuthenticated() {
+    static isLoggedIn() {
         return !!sessionStorage.getItem('jwt');
     }
 
@@ -59,7 +58,7 @@ export default class AuthActions {
             })
                 .then(response => {
                     if (response.status !== 200) {
-                        dispatch(this.loginFail(response.status));
+                        dispatch(this.loginFailure(response.status));
                         return;
                     }
                     response.json().then(value => {
@@ -76,5 +75,4 @@ export default class AuthActions {
             type: LOGOUT
         };
     }
-
 }

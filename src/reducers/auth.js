@@ -28,13 +28,11 @@ const INITIAL_STATE = {
  * @returns {*}
  */
 export default function auth(state = INITIAL_STATE, action) {
-
     switch (action.type) {
         case LOGIN:
             return {...state, isAuthenticated: false, isError: false};
 
         case LOGIN_SUCCESS:
-            //sessionStorage.setItem('jwt', action.value.token);
             return {
                 ...state, isAuthenticated: true, isError: false, authUser: action.payload, message: i18n(action.type, action.status)
             };

@@ -11,7 +11,7 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import {Grid, Form, FormControl, FormGroup, ControlLabel, Col, Row} from 'react-bootstrap';
-import {auth} from 'actions/auth';
+import {Auth} from 'actions/index';
 import styles from './styles.css';
 
 /**
@@ -117,15 +117,15 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps(state) {
     return {...state};
-};
+}
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
     return {
-        authActions: bindActionCreators(session, dispatch),
+        authActions: bindActionCreators(Auth, dispatch),
         dispatch: dispatch
     };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

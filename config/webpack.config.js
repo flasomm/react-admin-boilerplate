@@ -75,23 +75,19 @@ module.exports = {
     },
     resolve: {
         modules: [
-            path.resolve(__dirname, 'src'),
-            path.resolve(__dirname, 'src/components/containers'),
+            path.resolve(__dirname, '..', 'src'),
             'node_modules'
         ],
         alias: {
-            src: path.resolve(__dirname, 'src'),
-            react: path.join(__dirname, 'node_modules', 'react'),
-            configureStore: path.resolve(__dirname, 'src/store/configureStore'),
-            components: 'src/components',
-            containers: 'src/containers',
-            middleware: 'src/middleware',
-            actions: 'src/actions',
-            reducers: 'src/reducers',
-            shared: 'src/shared',
-            routes: 'src/routes',
-            assets: 'src/assets',
-            utils: 'src/utils'
+            configureStore: path.resolve(__dirname, '..', 'src/store/configureStore'),
+            components: path.resolve(__dirname, '..', 'src/components'),
+            containers: path.resolve(__dirname, '..', 'src/containers'),
+            middleware: path.resolve(__dirname, '..', 'src/middleware'),
+            actions: path.resolve(__dirname, '..', 'src/actions'),
+            reducers: path.resolve(__dirname, '..', 'src/reducers'),
+            shared: path.resolve(__dirname, '..', 'src/shared'),
+            routes: path.resolve(__dirname, '..', 'src/routes'),
+            assets: path.resolve(__dirname, '..', 'src/assets')
         },
         extensions: ['.js', '.json']
     },

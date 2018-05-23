@@ -41,5 +41,14 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "airbnb-base"
-  ]
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      }
+    }
+  }
 }
