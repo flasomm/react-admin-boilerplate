@@ -5,6 +5,7 @@
  * @date     22/05/2018
  */
 
+import jwt from 'jsonwebtoken';
 import {
     LOGIN,
     LOGIN_SUCCESS,
@@ -15,9 +16,18 @@ import {
 
 const config = require('config');
 
-const loginSuccess = (res) => ({
-    value: res,
-    type: LOGIN_SUCCESS
+const decodeToken = (token) => {
+    const decodedToken = jwt.decode(token);
+    return {
+        id: decodedToken['_id'],
+        email: decodedToken.email,
+        role: decodedToken.role
+    };
+};
+
+const loginSuccess = (user) => ({
+    type: LOGIN_SUCCESS,
+    payload: user
 });
 
 const loginFailure = (status) => ({
@@ -42,7 +52,7 @@ export const isLoggedIn = () => (dispatch) => {
     const token = sessionStorage.getItem('jwt');
     if (token) {
         console.log('authentication successfull');
-        dispatch(isLoggedInSuccess());
+        dispatch(isLoggedInSuccess(decodeToken(token)));
     } else {
         console.log('not logged in ');
         dispatch(isLoggedInFailure());
@@ -72,7 +82,7 @@ export const login = (email, password) => dispatch => new Promise(resolve => {
             }
             response.json().then(value => {
                 sessionStorage.setItem('jwt', value.token);
-                dispatch(loginSuccess(value));
+                dispatch(loginSuccess(decodeToken(value.token)));
                 resolve(value);
             });
         });
