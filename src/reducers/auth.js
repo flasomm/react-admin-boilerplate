@@ -7,10 +7,13 @@
 
 import i18n from 'shared/i18n';
 import {
+    IS_LOGIN,
+    IS_LOGOUT,
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT
+    LOGOUT,
+    SIGNIN_REJECTED
 } from 'shared/actions';
 
 
@@ -18,7 +21,7 @@ const INITIAL_STATE = {
     authUser: {},
     isAuthenticated: null,
     isError: false,
-    errorMessage: ''
+    message: ''
 };
 
 /**
@@ -29,6 +32,17 @@ const INITIAL_STATE = {
  */
 export default function auth(state = INITIAL_STATE, action) {
     switch (action.type) {
+        case IS_LOGIN:
+            return {...state, isAuthenticated: action.value};
+
+        case IS_LOGOUT:
+            return {...state, isAuthenticated: false, authUser: {}};
+
+        case SIGNIN_REJECTED:
+            return {
+                ...state, isAuthenticated: false, authUser: {}, isError: true, message: i18n(action.type, action.status)
+            };
+
         case LOGIN:
             return {...state, isAuthenticated: false, isError: false};
 
@@ -42,6 +56,7 @@ export default function auth(state = INITIAL_STATE, action) {
 
         case LOGOUT:
             return {...state, isAuthenticated: false};
+
 
         default:
             return state;

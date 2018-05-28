@@ -10,11 +10,11 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {Route, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Auth} from 'actions/index';
+import {auth} from 'actions/index';
 
 class PublicRoute extends Component {
     static propTypes = {
-        component: PropTypes.func,
+        component: PropTypes.func.isRequired,
         isAuthenticated: PropTypes.bool,
         isLoggedIn: PropTypes.func.isRequired
     };
@@ -62,7 +62,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    isLoggedIn: () => Auth.isLoggedIn()
+    isLoggedIn: () => auth.isLoggedIn()
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PublicRoute);

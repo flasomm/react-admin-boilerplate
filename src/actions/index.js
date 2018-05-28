@@ -5,8 +5,8 @@
  * @date     23/05/2018
  */
 
-import * as Auth from './auth';
+import * as auth from './auth';
 
 export {
-    Auth
+    auth
 };

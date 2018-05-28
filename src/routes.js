@@ -8,9 +8,7 @@
 import React from 'react';
 import {Route, Switch} from 'react-router';
 import {PrivateRoute, PublicRoute} from 'components/index';
-import {Dashboard} from 'containers/Dashboard';
-import {Login} from 'containers/Login';
-import {NotFound} from 'containers/NotFound';
+import {Dashboard, Login, NotFound} from 'containers/index';
 
 export default () => (
     <Switch>

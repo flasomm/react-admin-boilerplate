@@ -8,7 +8,10 @@
 import {
     LOGIN,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE
+    LOGIN_FAILURE,
+    IS_LOGIN,
+    IS_LOGOUT,
+    SIGNIN_REJECTED
 } from 'shared/actions';
 
 const config = require('config');
@@ -27,7 +30,40 @@ const loginRequest = () => ({
     type: LOGIN
 });
 
-export const isLoggedIn = () => !!sessionStorage.getItem('jwt');
+const isLoggedInSuccess = (user) => ({
+    type: IS_LOGIN,
+    payload: user
+});
+
+const isLoggedInFailure = () => ({
+    type: IS_LOGOUT
+});
+
+const signinRejected = (error) => ({
+    type: SIGNIN_REJECTED,
+    payload: error
+});
+
+const ensureAuthenticated = (dispatch, token) => {
+    if (token) {
+        console.log('authentication successfull ');
+        dispatch(isLoggedInSuccess());
+    } else {
+        // never gonna happen
+        console.log('authentication error ');
+        dispatch(signinRejected('no token'));
+    }
+};
+
+export const isLoggedIn = () => (dispatch) => {
+    const token = sessionStorage.getItem('jwt');
+    if (token) {
+        ensureAuthenticated(dispatch, token);
+    } else {
+        console.log('not logged in ');
+        dispatch(isLoggedInFailure());
+    }
+};
 
 export const login = (email, password) => dispatch => new Promise(resolve => {
     dispatch(loginRequest());

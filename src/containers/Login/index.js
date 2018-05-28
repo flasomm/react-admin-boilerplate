@@ -11,7 +11,7 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import {Grid, Form, FormControl, FormGroup, ControlLabel, Col, Row} from 'react-bootstrap';
-import {Auth} from 'actions/index';
+import {auth} from 'actions/index';
 import styles from './styles.css';
 
 /**
@@ -122,7 +122,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    authActions: bindActionCreators(Auth, dispatch),
+    authActions: bindActionCreators(auth, dispatch),
     dispatch: dispatch
 });
 
