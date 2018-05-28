@@ -7,27 +7,29 @@
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Grid, Col, Row} from 'react-bootstrap';
+import Helmet from 'react-helmet';
+
+const config = require('config');
 
 /**
  * Dashboard page class.
  */
 class Dashboard extends Component {
     /**
-     * Default constructor.
-     * @param props
-     */
-    constructor(props) {
-        super(props);
-        this.title = 'Dashboard';
-    }
-
-    /**
      * Render.
      * @returns {XML}
      */
     render() {
         return (
-            <div>{this.title}</div>
+            <Grid fluid>
+                <Row>
+                    <Col lg={4} md={8}>
+                        <Helmet title={`Dashboard - ${config.app.title}`}/>
+                        <div>Dashboard</div>
+                    </Col>
+                </Row>
+            </Grid>
         );
     }
 }

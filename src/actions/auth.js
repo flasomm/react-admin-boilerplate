@@ -27,7 +27,8 @@ const decodeToken = (token) => {
 
 const loginSuccess = (user) => ({
     type: LOGIN_SUCCESS,
-    payload: user
+    payload: user,
+    status: 200
 });
 
 const loginFailure = (status) => ({
@@ -51,10 +52,8 @@ const isLoggedInFailure = () => ({
 export const isLoggedIn = () => (dispatch) => {
     const token = sessionStorage.getItem('jwt');
     if (token) {
-        console.log('authentication successfull');
         dispatch(isLoggedInSuccess(decodeToken(token)));
     } else {
-        console.log('not logged in ');
         dispatch(isLoggedInFailure());
     }
 };

@@ -7,10 +7,6 @@
 
 
 const messages = {
-    CREATE_USER: {
-        200: 'User created with success',
-        404: 'User not found'
-    },
     LOGIN_SUCCESS: {
         200: 'Authentication successful'
     },

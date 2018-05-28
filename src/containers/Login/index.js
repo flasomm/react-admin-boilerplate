@@ -14,12 +14,14 @@ import {Grid, Form, FormControl, FormGroup, ControlLabel, Col, Row} from 'react-
 import {auth} from 'actions/index';
 import styles from './styles.css';
 
+const config = require('config');
+
 /**
  * Login page class.
  */
 class Login extends Component {
     static propTypes = {
-        app: PropTypes.object,
+        auth: PropTypes.object,
         authActions: PropTypes.object,
         history: PropTypes.object,
         dispatch: PropTypes.func
@@ -63,6 +65,17 @@ class Login extends Component {
         this.props.authActions.login(this.state.email, this.state.password);
     }
 
+    displayMessage() {
+        if (!this.props.auth.message) {
+            return '';
+        }
+        return (
+            <div className={`alert alert-${this.props.auth.isError ? 'danger' : 'success'}`} role="alert">
+                {this.props.auth.message}
+            </div>
+        );
+    }
+
     /**
      * Render
      * @returns {XML}
@@ -74,7 +87,7 @@ class Login extends Component {
                     <Col lg={4} md={8}>
                         <div className={`${styles['login-content']} ${styles.card}`}>
                             <div className={`${styles['login-form']}`}>
-                                <Helmet title="Sign In - Astrology BO"/>
+                                <Helmet title={`Sign In - ${config.app.title}`}/>
                                 <h4>Login</h4>
                                 <Form horizontal onSubmit={this.onSubmit}>
                                     <FormGroup>
@@ -101,11 +114,7 @@ class Login extends Component {
                                             />
                                         </Col>
                                     </FormGroup>
-                                    {(this.props.app.loginInfos) ?
-                                        <div className={`alert alert-${this.props.app.loginInfos.type}`} role="alert">
-                                            {this.props.app.loginInfos.message}
-                                        </div>
-                                        : null}
+                                    {this.displayMessage()}
                                     <button type="submit" className="btn btn-primary">Sign In</button>
                                 </Form>
                             </div>
