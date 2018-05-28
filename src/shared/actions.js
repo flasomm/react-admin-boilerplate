@@ -22,4 +22,3 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const IS_LOGIN = 'IS_LOGIN';
 export const IS_LOGOUT = 'IS_LOGOUT';
-export const SIGNIN_REJECTED = 'SIGNIN_REJECTED';

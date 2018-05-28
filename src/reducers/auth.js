@@ -12,8 +12,7 @@ import {
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT,
-    SIGNIN_REJECTED
+    LOGOUT
 } from 'shared/actions';
 
 
@@ -33,15 +32,10 @@ const INITIAL_STATE = {
 export default function auth(state = INITIAL_STATE, action) {
     switch (action.type) {
         case IS_LOGIN:
-            return {...state, isAuthenticated: action.value};
+            return {...state, isAuthenticated: true};
 
         case IS_LOGOUT:
             return {...state, isAuthenticated: false, authUser: {}};
-
-        case SIGNIN_REJECTED:
-            return {
-                ...state, isAuthenticated: false, authUser: {}, isError: true, message: i18n(action.type, action.status)
-            };
 
         case LOGIN:
             return {...state, isAuthenticated: false, isError: false};
