@@ -13,6 +13,9 @@ const messages = {
     LOGIN_FAILURE: {
         400: 'Error Server',
         401: 'Access denied'
+    },
+    LOGOUT: {
+        200: 'Logout successful'
     }
 };
 

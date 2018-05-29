@@ -8,6 +8,7 @@
 import jwt from 'jsonwebtoken';
 import {
     LOGIN,
+    LOGOUT,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
     IS_LOGIN,
@@ -87,11 +88,10 @@ export const login = (email, password) => dispatch => new Promise(resolve => {
         });
 });
 
-/*
- const logout = () => {
- sessionStorage.clear();
- return {
- type: LOGOUT
- };
- };
- */
+export const logout = () => {
+    sessionStorage.clear();
+    return {
+        type: LOGOUT,
+        status: 200
+    };
+};

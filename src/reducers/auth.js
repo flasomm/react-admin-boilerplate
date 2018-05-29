@@ -49,7 +49,7 @@ export default function auth(state = INITIAL_STATE, action) {
             return {...state, isAuthenticated: false, user: {}, isError: true, message: i18n(action.type, action.status)};
 
         case LOGOUT:
-            return {...state, isAuthenticated: false};
+            return {...state, isAuthenticated: false, isError: false, message: i18n(action.type, action.status)};
 
         default:
             return state;

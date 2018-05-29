@@ -7,6 +7,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Header} from 'components/index';
 import styles from './styles.css';
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
     render() {
         return (
             <div id={styles['main-wrapper']}>
+                <Header />
                 {this.props.children}
             </div>
         );
