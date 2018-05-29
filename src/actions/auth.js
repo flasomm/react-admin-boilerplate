@@ -61,12 +61,11 @@ export const isLoggedIn = () => (dispatch) => {
 };
 
 const defineAbilitiesFor = (user) => {
-    const {rules, can, cannot} = AbilityBuilder.extract();
+    const {rules, can} = AbilityBuilder.extract();
 
     if (user.role === 'admin') {
         can('manage', 'all');
     } else {
-        cannot('manage', 'all');
         can('read', 'all');
     }
 
