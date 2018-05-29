@@ -6,6 +6,7 @@
  */
 
 import jwt from 'jsonwebtoken';
+import {AbilityBuilder, Ability} from '@casl/ability';
 import {
     LOGIN,
     LOGOUT,
@@ -59,6 +60,19 @@ export const isLoggedIn = () => (dispatch) => {
     }
 };
 
+const defineAbilitiesFor = (user) => {
+    const {rules, can, cannot} = AbilityBuilder.extract();
+
+    if (user.role === 'admin') {
+        can('manage', 'all');
+    } else {
+        cannot('manage', 'all');
+        can('read', 'all');
+    }
+
+    return new Ability(rules);
+};
+
 export const login = (email, password) => dispatch => new Promise(resolve => {
     dispatch(loginRequest());
 
@@ -82,7 +96,9 @@ export const login = (email, password) => dispatch => new Promise(resolve => {
             }
             response.json().then(value => {
                 sessionStorage.setItem('jwt', value.token);
-                dispatch(loginSuccess(decodeToken(value.token)));
+                const user = decodeToken(value.token);
+                defineAbilitiesFor(user);
+                dispatch(loginSuccess(user));
                 resolve(value);
             });
         });
@@ -95,3 +111,4 @@ export const logout = () => {
         status: 200
     };
 };
+
