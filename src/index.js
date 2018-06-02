@@ -12,6 +12,8 @@ import {Provider} from 'react-redux';
 import {ConnectedRouter} from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 import configureStore from 'store/configureStore';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 import 'assets/css/styles.css';
 import {App} from 'containers/index';
 import routes from './routes';

@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -55,15 +57,44 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: 'style-loader'
-            }, {
+                include: [
+                    path.resolve(__dirname, '..', 'assets/css'),
+                    '/node_modules/bootstrap/dist/css/bootstrap.min.css',
+                    '/node_modules/font-awesome/css/font-awesome.min.css'
+                ],
+                use: ExtractTextPlugin.extract("style-loader", "css-loader")
+            },
+            {
                 test: /\.css$/,
-                loader: 'css-loader',
-                query: {
-                    modules: true,
-                    localIdentName: '[name]__[local]___[hash:base64:5]',
-                    minimize: true
+                exclude: [
+                    path.resolve(__dirname, '..', 'assets/css'),
+                    /node_modules/
+                ],
+                use: [
+                    {
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader",
+                        query: {
+                            modules: true,
+                            localIdentName: '[name]__[local]___[hash:base64:5]',
+                            minimize: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 1024 * 5,
+                    outputPath: 'assets/images'
                 }
+            },
+            {
+                test: /\.(ttf|eot|woff)/,
+                loader: 'file-loader'
             }
         ]
     },
@@ -123,7 +154,7 @@ module.exports = {
                 login: {
                     name: 'login',
                     chunks: 'all',
-                    priority: 3,
+                    priority: 2,
                     enforce: true,
                     reuseExistingChunk: true,
                     test(module, chunks) {
@@ -133,7 +164,7 @@ module.exports = {
                 dashboard: {
                     name: 'dashboard',
                     chunks: 'all',
-                    priority: 4,
+                    priority: 3,
                     enforce: true,
                     reuseExistingChunk: true,
                     test(module, chunks) {
@@ -145,6 +176,7 @@ module.exports = {
     },
     plugins: [
         //new BundleAnalyzerPlugin(),
+        new CleanWebpackPlugin(['dist']),
         new DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),

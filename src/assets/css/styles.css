@@ -81,10 +81,6 @@ h6 {
     padding-bottom: 60px;
 }
 
-.container-fluid {
-    padding: 0 30px 25px;
-}
-
 @media (min-width: 1024px) {
     .page-wrapper {
         margin-left: 240px;
