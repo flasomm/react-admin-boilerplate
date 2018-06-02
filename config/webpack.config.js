@@ -5,7 +5,6 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 //const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -22,7 +21,7 @@ module.exports = {
         open: false,
         inline: true,
         progress: true,
-        contentBase: path.join(__dirname, "src"),
+        contentBase: path.join(__dirname, "..", "src"),
         port: 7000
     },
     entry: {
@@ -58,22 +57,22 @@ module.exports = {
             {
                 test: /\.css$/,
                 include: [
-                    path.resolve(__dirname, '..', 'assets/css'),
-                    '/node_modules/bootstrap/dist/css/bootstrap.min.css',
-                    '/node_modules/font-awesome/css/font-awesome.min.css'
+                    path.resolve(__dirname, "..", "src/assets/css"),
+                    /node_modules/
                 ],
-                use: ExtractTextPlugin.extract("style-loader", "css-loader")
+                use: [
+                    {loader: "style-loader"},
+                    {loader: "css-loader"}
+                ]
             },
             {
                 test: /\.css$/,
                 exclude: [
-                    path.resolve(__dirname, '..', 'assets/css'),
+                    path.resolve(__dirname, "..", "src/assets/css"),
                     /node_modules/
                 ],
                 use: [
-                    {
-                        loader: "style-loader"
-                    },
+                    {loader: "style-loader"},
                     {
                         loader: "css-loader",
                         query: {

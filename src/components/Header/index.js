@@ -47,21 +47,21 @@ class Header extends Component {
             return (
                 <div>
                     <Nav pullRight>
-                        <NavDropdown eventKey={1} title={<i className="fas fa-user fa-fw"></i>} id="basic-nav-dropdown">
+                        <NavDropdown eventKey={1} title={<i className="fa fa-user fa-fw"></i>} id="basic-nav-dropdown">
                             <MenuItem eventKey={1.1}>
                                     <span>
-                                       <i className="fas fa-user fa-fw"></i> User Profile
+                                       <i className="fa fa-user fa-fw"></i> User Profile
                                     </span>
                             </MenuItem>
                             <MenuItem eventKey={1.2}>
                                     <span>
-                                      <i className="fas fa-cog fa-fw"></i> Settings
+                                      <i className="fa fa-cog fa-fw"></i> Settings
                                     </span>
                             </MenuItem>
                             <MenuItem divider/>
                             <MenuItem eventKey={1.3} onClick={this.props.logout}>
                                     <span>
-                                        <i className="fas fa-sign-out-alt fa-fw"></i> Logout
+                                        <i className="fa fa-sign-out-alt fa-fw"></i> Logout
                                     </span>
                             </MenuItem>
                         </NavDropdown>
