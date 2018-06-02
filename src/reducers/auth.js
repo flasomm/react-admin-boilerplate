@@ -16,15 +16,11 @@ import {
     LOGOUT
 } from 'shared/actions';
 
-
-const INITIAL_STATE = {
-    user: {},
-    ability: {},
-    isAuthenticated: null,
-    isError: false,
-    message: ''
-};
-
+/**
+ * Define casl abilities for user's role authenticated.
+ * @param user
+ * @returns {*}
+ */
 const defineAbilitiesFor = (user) => {
     const {rules, can} = AbilityBuilder.extract();
 
@@ -35,6 +31,15 @@ const defineAbilitiesFor = (user) => {
     }
     return new Ability(rules);
 };
+
+const INITIAL_STATE = {
+    user: {},
+    ability: {},
+    isAuthenticated: null,
+    isError: false,
+    message: ''
+};
+
 
 /**
  * Default function.
