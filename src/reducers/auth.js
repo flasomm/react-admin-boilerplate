@@ -6,6 +6,7 @@
  */
 
 import i18n from 'shared/i18n';
+import {AbilityBuilder, Ability} from '@casl/ability';
 import {
     IS_LOGIN,
     IS_LOGOUT,
@@ -18,9 +19,21 @@ import {
 
 const INITIAL_STATE = {
     user: {},
+    ability: {},
     isAuthenticated: null,
     isError: false,
     message: ''
+};
+
+const defineAbilitiesFor = (user) => {
+    const {rules, can} = AbilityBuilder.extract();
+
+    if (user.role === 'admin') {
+        can('manage', 'all');
+    } else {
+        can('read', 'all');
+    }
+    return new Ability(rules);
 };
 
 /**
@@ -32,21 +45,33 @@ const INITIAL_STATE = {
 export default function auth(state = INITIAL_STATE, action) {
     switch (action.type) {
         case IS_LOGIN:
-            return {...state, isAuthenticated: true, user: action.payload};
+            return {...state, isAuthenticated: true, user: action.payload, ability: defineAbilitiesFor(action.payload)};
 
         case IS_LOGOUT:
-            return {...state, isAuthenticated: false, user: {}};
+            return {...state, isAuthenticated: false, user: {}, ability: {}};
 
         case LOGIN:
             return {...state, isAuthenticated: false, isError: false};
 
         case LOGIN_SUCCESS:
             return {
-                ...state, isAuthenticated: true, isError: false, user: action.payload, message: i18n(action.type, action.status)
+                ...state,
+                isAuthenticated: true,
+                isError: false,
+                user: action.payload,
+                ability: defineAbilitiesFor(action.payload),
+                message: i18n(action.type, action.status)
             };
 
         case LOGIN_FAILURE:
-            return {...state, isAuthenticated: false, user: {}, isError: true, message: i18n(action.type, action.status)};
+            return {
+                ...state,
+                isAuthenticated: false,
+                user: {},
+                ability: {},
+                isError: true,
+                message: i18n(action.type, action.status)
+            };
 
         case LOGOUT:
             return {...state, isAuthenticated: false, isError: false, message: i18n(action.type, action.status)};
