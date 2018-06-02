@@ -40,7 +40,6 @@ const INITIAL_STATE = {
     message: ''
 };
 
-
 /**
  * Default function.
  * @param state
