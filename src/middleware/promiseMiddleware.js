@@ -35,46 +35,46 @@ export default function promiseMiddleware() {
 
                 switch (res.status) {
                     case 400:
-                        res.json().then(value => {
+                        res.json().then(payload => {
                             next({
                                 ...rest,
-                                value,
+                                payload,
                                 type: REQUEST_WARNING,
-                                message: (action.error) ? action.error.toString() : value.messages.join(' ')
+                                message: (action.error) ? action.error.toString() : payload.messages.join(' ')
                             });
                         });
                         break;
                     case 401:
-                        res.json().then(value => {
-                            next({...rest, value, type: REQUEST_DENIED, message: i18n(action.type, 401)});
+                        res.json().then(payload => {
+                            next({...rest, payload, type: REQUEST_DENIED, message: i18n(action.type, 401)});
                         });
                         break;
                     case 404:
-                        res.json().then(value => {
-                            next({...rest, value, type: REQUEST_NOT_FOUND, message: i18n(action.type, 404)});
+                        res.json().then(payload => {
+                            next({...rest, payload, type: REQUEST_NOT_FOUND, message: i18n(action.type, 404)});
                         });
                         break;
                     case 409:
-                        res.json().then(value => {
-                            next({...rest, value, type: REQUEST_DUPLICATE, message: i18n(action.type, 409)});
+                        res.json().then(payload => {
+                            next({...rest, payload, type: REQUEST_DUPLICATE, message: i18n(action.type, 409)});
                         });
                         break;
                     case 500:
-                        res.json().then(value => {
+                        res.json().then(payload => {
                             next({
                                 ...rest,
-                                value,
+                                payload,
                                 type: REQUEST_FAILURE,
-                                message: (action.error) ? action.error.toString() : value.messages.join(' ')
+                                message: (action.error) ? action.error.toString() : payload.messages.join(' ')
                             });
                         });
                         break;
                     default:
-                        res.json().then(value => {
+                        res.json().then(payload => {
                             if (!type.match('GET')) {
-                                next({...rest, value, type: REQUEST_SUCCEED, message: i18n(action.type, 200)});
+                                next({...rest, payload, type: REQUEST_SUCCEED, message: i18n(action.type, 200)});
                             }
-                            next({...rest, value, type: SUCCESS});
+                            next({...rest, payload, type: SUCCESS});
                         });
                 }
 

@@ -7,6 +7,7 @@
 
 import app from './app';
 import auth from './auth';
+import users from './users';
 
-export default {app, auth};
+export default {app, auth, users};
 

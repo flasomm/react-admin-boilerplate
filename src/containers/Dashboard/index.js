@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import {Grid, Col, Row} from 'react-bootstrap';
 import {Can} from '@casl/react';
 import Helmet from 'react-helmet';
-import {auth} from 'actions/index';
+import {auth, users} from 'actions/index';
 
 const config = require('config');
 
@@ -21,11 +21,18 @@ const config = require('config');
  */
 class Dashboard extends Component {
     static propTypes = {
-        ability: PropTypes.object
+        ability: PropTypes.object,
+        authUser: PropTypes.object,
+        user: PropTypes.object,
+        usersActions: PropTypes.object
     };
 
     createUser() {
         console.log('test create');
+    }
+
+    UNSAFE_componentWillMount() { // eslint-disable-line camelcase
+        this.props.usersActions.get(this.props.authUser.id);
     }
 
     /**
@@ -33,6 +40,7 @@ class Dashboard extends Component {
      * @returns {XML}
      */
     render() {
+        console.log(this.props.user);
         return (
             <Grid fluid>
                 <Row>
@@ -50,10 +58,14 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    ability: state.auth.ability
+    ability: state.auth.ability,
+    authUser: state.auth.user,
+    user: state.users.item
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    usersActions: bindActionCreators(users, dispatch),
     authActions: bindActionCreators(auth, dispatch)
 });
 

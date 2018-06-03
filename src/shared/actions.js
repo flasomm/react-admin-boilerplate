@@ -15,10 +15,13 @@ export const REQUEST_DENIED = 'REQUEST_DENIED';
 export const LOADING = 'LOADING';
 export const END_LOADING = 'END_LOADING';
 
-/* session.js */
+/* auth.js */
 export const LOGIN = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 export const IS_LOGIN = 'IS_LOGIN';
 export const IS_LOGOUT = 'IS_LOGOUT';
+
+/* users */
+export const GET_USER = 'GET_USER';
