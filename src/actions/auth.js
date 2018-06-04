@@ -17,6 +17,11 @@ import {
 
 const config = require('config');
 
+const tokenHasExpired = (token) => {
+    const decodedToken = jwt.decode(token);
+    return decodedToken.exp > new Date().getTime();
+};
+
 const decodeToken = (token) => {
     const decodedToken = jwt.decode(token);
     return {
@@ -52,7 +57,7 @@ const isLoggedInFailure = () => ({
 
 export const isLoggedIn = () => (dispatch) => {
     const token = sessionStorage.getItem('jwt');
-    if (token) {
+    if (token && !tokenHasExpired(token)) {
         dispatch(isLoggedInSuccess(decodeToken(token)));
     } else {
         dispatch(isLoggedInFailure());

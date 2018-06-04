@@ -36,7 +36,7 @@ const INITIAL_STATE = {
 export default function app(state = INITIAL_STATE, action) {
     switch (action.type) {
         case REQUEST_DENIED:
-            return {toasterMsg: notify('error', action.message)};
+            return {...state, isAuthenticated: false, user: {}};
 
         case REQUEST_NOT_FOUND:
             return {toasterMsg: notify('info', action.message)};

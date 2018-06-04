@@ -45,9 +45,7 @@ export default function promiseMiddleware() {
                         });
                         break;
                     case 401:
-                        res.json().then(payload => {
-                            next({...rest, payload, type: REQUEST_DENIED, message: i18n(action.type, 401)});
-                        });
+                        next({...rest, res, type: REQUEST_DENIED, message: i18n(action.type, 401)});
                         break;
                     case 404:
                         res.json().then(payload => {

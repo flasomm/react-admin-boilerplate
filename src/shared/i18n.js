@@ -16,6 +16,9 @@ const messages = {
     },
     LOGOUT: {
         200: 'Logout successful'
+    },
+    REQUEST_DENIED: {
+        401: 'Unauthorized'
     }
 };
 
