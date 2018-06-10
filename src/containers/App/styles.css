@@ -16,3 +16,19 @@
 #main-wrapper {
     width: 100%;
 }
+
+.app-body {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    overflow-x: hidden;
+}
+
+@media (min-width: 992px) {
+    .header-fixed .app-body {
+        margin-top: 55px;
+    }
+}
