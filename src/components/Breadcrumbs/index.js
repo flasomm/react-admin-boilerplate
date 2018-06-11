@@ -35,8 +35,8 @@ class Breadcrumbs extends Component {
 
     displayCrumbs() {
         const {isAuthenticated, location} = this.props;
+        const name = `${location.pathname.substr(1).charAt(0).toUpperCase()}${location.pathname.substr(1).slice(1)}`;
         if (isAuthenticated) {
-            const name = `${location.pathname.substr(1).charAt(0).toUpperCase()}${location.pathname.substr(1).slice(1)}`;
             return (
                 <ol className="breadcrumb">
                     <li className="active breadcrumb-item" aria-current="page">
