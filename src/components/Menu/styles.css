@@ -37,22 +37,24 @@
     -ms-flex-direction: column;
     flex-direction: column;
     padding: 0;
-    color: #fff;
-    background: #2f353a;
+    background-color: #f8f8f8;
+    border-right: 1px solid #e7e7e7;
 }
 
-.sidebar .cd-accordion-menu input[type=checkbox] {
-    /* hide native checkbox */
+.cd-accordion-menu input[type=checkbox] {
     position: absolute;
     opacity: 0;
+}
+
+.cd-accordion-menu li a {
+    color: #47525a !important;
 }
 
 .cd-accordion-menu label, .cd-accordion-menu a {
     position: relative;
     display: block;
-    padding: 18px 18px 18px 18px;
-    color: #ffffff;
-    font-size: 1.6rem;
+    padding: 10px 18px 10px 18px;
+    font-size: 1.4rem;
 }
 
 .cd-accordion-menu label::before {
@@ -67,6 +69,7 @@
 
 .cd-accordion-menu label {
     cursor: pointer;
+    font-weight: normal;
 }
 
 .cd-accordion-menu ul {
@@ -83,18 +86,42 @@
     opacity: 0;
 }
 
-ul.cd-accordion-menu, ul.cd-accordion-menu ul {
+.cd-accordion-menu, ul.cd-accordion-menu ul {
     list-style-type: none;
 }
 
-ul.cd-accordion-menu, ul.cd-accordion-menu li ul {
+.cd-accordion-menu, ul.cd-accordion-menu li ul {
     padding: 0;
 }
 
-ul.cd-accordion-menu ul li a {
+.cd-accordion-menu ul li a {
     padding-left: 30px;
 }
 
-.cd-accordion-menu label:hover, .cd-accordion-menu a:hover {
-    background: #52565d;
+.cd-accordion-menu li:not(:last-child), ul.cd-accordion-menu label {
+    border-bottom: 1px solid #e7e7e7;
 }
+
+.cd-accordion-menu label {
+    margin-bottom: 0;
+}
+
+.cd-accordion-menu label:hover, .cd-accordion-menu a:hover {
+    text-decoration: none;
+    background-color: #eee;
+}
+
+.cd-accordion-menu label:after {
+    content: "\f053";
+    font-family: FontAwesome;
+    float: right;
+}
+
+.cd-accordion-menu input[type=checkbox]:checked + label:after {
+    content: "\f078";
+    font-family: FontAwesome;
+    float: right;
+    position: relative;
+    left: 5px;
+}
+

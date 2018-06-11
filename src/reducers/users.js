@@ -27,7 +27,6 @@ const INITIAL_STATE = {
  * @returns {*}
  */
 export default function users(state = INITIAL_STATE, action) {
-    console.log('action', action);
     switch (action.type) {
         case GET_USER:
             return {...state, item: action.payload};

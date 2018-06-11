@@ -11,6 +11,7 @@
  */
 
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
@@ -42,26 +43,44 @@ class Menu extends Component {
     render() {
         const {isAuthenticated} = this.props;
         if (isAuthenticated) {
-            console.log(isAuthenticated);
+            return (
+                <div className={styles['sidebar']}>
+                    <nav>
+                        <ul className={styles['cd-accordion-menu']}>
+                            <li>
+                                <Link to="/dashboard">
+                                    <i className="fa fa-tachometer fa-fw"></i>
+                                    <span>&nbsp;Dashboard</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/users">
+                                    <i className="fa fa-users fa-fw"></i>
+                                    <span>&nbsp;Users</span>
+                                </Link>
+                            </li>
+                            <li className={styles['has-children']}>
+                                <input type="checkbox" name="group-1" id="group-1"/>
+                                <label htmlFor="group-1">
+                                    <i className="fa fa-cog fa-fw"></i>
+                                    <span>&nbsp;System</span>
+                                    <span className={styles['caret-open']}></span>
+                                </label>
+                                <ul>
+                                    <li>
+                                        <Link to="/roles">
+                                            <i className="fa fa-user-circle fa-fw"></i>
+                                            <span>&nbsp;Roles</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            );
         }
-        return (
-            <div className={styles['sidebar']}>
-                <nav>
-                    <ul className={styles['cd-accordion-menu']}>
-                        <li><a href="#0">Users</a></li>
-                        <li><a href="#0">Roles</a></li>
-                        <li className={styles['has-children']}>
-                            <input type="checkbox" name="group-1" id="group-1"/>
-                            <label htmlFor="group-1">System</label>
-                            <ul>
-                                <li><a href="#0">Image</a></li>
-                                <li><a href="#0">Image</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        );
+        return null;
     }
 }
 const mapStateToProps = (state) => ({

@@ -16,7 +16,7 @@ import {auth} from 'actions/index';
 const config = require('config');
 
 /**
- * App page class.
+ * Headers page class.
  */
 class Header extends Component {
     static propTypes = {

@@ -7,7 +7,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Header, Menu} from 'components/index';
+import {Header, Menu, Breadcrumbs} from 'components/index';
 import styles from './styles.css';
 
 class App extends Component {
@@ -21,7 +21,10 @@ class App extends Component {
                 <Header />
                 <div className={styles['app-body']}>
                     <Menu />
-                    {this.props.children}
+                    <div className={styles.main}>
+                        <Breadcrumbs />
+                        {this.props.children}
+                    </div>
                 </div>
             </div>
         );
