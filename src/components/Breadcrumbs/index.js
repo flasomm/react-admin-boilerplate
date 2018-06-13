@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import {auth} from 'actions/index';
-
+import styles from './styles.css';
 
 class Breadcrumbs extends Component {
     static propTypes = {
@@ -38,11 +38,14 @@ class Breadcrumbs extends Component {
         const name = `${location.pathname.substr(1).charAt(0).toUpperCase()}${location.pathname.substr(1).slice(1)}`;
         if (isAuthenticated) {
             return (
-                <ol className="breadcrumb">
-                    <li className="active breadcrumb-item" aria-current="page">
-                        <NavLink to={location.pathname} activeClassName="selected">{name}</NavLink>
-                    </li>
-                </ol>
+                <nav className="" aria-label="breadcrumb">
+                    <ol className={styles.breadcrumb}>
+                        <li className={styles['breadcrumb-item']}>
+                            <NavLink to="/" activeClassName="selected">Home</NavLink>
+                        </li>
+                        <li className={`${styles.active} ${styles['breadcrumb-item']}`} aria-current="page">{name}</li>
+                    </ol>
+                </nav>
             );
         }
         return null;
