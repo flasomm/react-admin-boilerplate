@@ -45,7 +45,7 @@ class Dashboard extends Component {
             <Grid fluid>
                 <Row>
                     <Col lg={4} md={8}>
-                        <Helmet title={`Dashboard - ${config.app.title}`}/>
+                        <Helmet title={`Dashboard - ${config.app.title}`} />
                         <div>Dashboard</div>
                         <Can I="create" a="User" ability={this.props.ability}>
                             <button onClick={this.createUser.bind(this)}>Create User</button>

@@ -2,6 +2,7 @@ const path = require('path');
 const extend = require('util')._extend;
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const CleanWebpackPlugin = require("clean-webpack-plugin");
@@ -62,7 +63,14 @@ module.exports = {
                 ],
                 use: [
                     {loader: "style-loader"},
-                    {loader: "css-loader"}
+                    {
+                        loader: "css-loader",
+                        query: {
+                            minimize: true,
+                            name: 'assets/css/[name].[ext]',
+                            localIdentName: '[name]__[local]___[hash:base64:5]'
+                        }
+                    }
                 ]
             },
             {
@@ -77,23 +85,33 @@ module.exports = {
                         loader: "css-loader",
                         query: {
                             modules: true,
-                            localIdentName: '[name]__[local]___[hash:base64:5]',
-                            minimize: true
+                            minimize: true,
+                            localIdentName: '[name]__[local]___[hash:base64:5]'
                         }
                     }
                 ]
             },
             {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 1024 * 5,
-                    outputPath: 'assets/images'
-                }
+                test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/images/[name].[ext]'
+                        }
+                    }
+                ]
             },
             {
                 test: /\.(ttf|eot|woff)/,
-                loader: 'file-loader'
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'assets/fonts/[name].[ext]'
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -124,14 +142,15 @@ module.exports = {
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
+                test: /\.js($|\?)/i,
                 cache: true,
                 parallel: true,
+                sourceMap: false,
                 uglifyOptions: {
-                    compress: false,
+                    compress: true,
                     ecma: 6,
                     mangle: true
-                },
-                sourceMap: true
+                }
             })
         ],
         splitChunks: {
@@ -175,21 +194,43 @@ module.exports = {
     },
     plugins: [
         //new BundleAnalyzerPlugin(),
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['../dist'], {allowExternal: true}),
         new DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
-        new webpack.ProvidePlugin({$: 'jquery', jquery: 'jquery', jQuery: 'jquery'}),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jquery: 'jquery',
+            jQuery: 'jquery'
+        }),
         new webpack.HotModuleReplacementPlugin(),
         new HTMLWebpackPlugin({
             template: "./src/index.tpl.html",
             inject: 'body',
             filename: "index.html"
         }),
+        new FaviconsWebpackPlugin({
+            logo: path.join(__dirname, '..', 'src', 'assets', 'images', 'logo.png'),
+            prefix: 'assets/favicons/',
+            persistentCache: true,
+            inject: true,
+            icons: {
+                android: true,
+                appleIcon: true,
+                appleStartup: true,
+                coast: false,
+                favicons: true,
+                firefox: true,
+                opengraph: false,
+                twitter: false,
+                yandex: false,
+                windows: false
+            }
+        }),
         new CompressionPlugin({
             test: /\.js/,
             cache: !IS_DEV
-        }),
+        })
     ],
     externals: {
         config: JSON.stringify(extend(require('./default.json'), require(`./${process.env.NODE_ENV}.json`)))
