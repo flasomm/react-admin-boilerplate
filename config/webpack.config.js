@@ -179,6 +179,7 @@ module.exports = {
         new DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
         }),
+        new webpack.ProvidePlugin({$: 'jquery', jquery: 'jquery', jQuery: 'jquery'}),
         new webpack.HotModuleReplacementPlugin(),
         new HTMLWebpackPlugin({
             template: "./src/index.tpl.html",
@@ -188,7 +189,7 @@ module.exports = {
         new CompressionPlugin({
             test: /\.js/,
             cache: !IS_DEV
-        })
+        }),
     ],
     externals: {
         config: JSON.stringify(extend(require('./default.json'), require(`./${process.env.NODE_ENV}.json`)))

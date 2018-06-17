@@ -47,7 +47,7 @@ class Header extends Component {
             return (
                 <div>
                     <Nav pullRight>
-                        <NavDropdown eventKey={1} title={<i className="fa fa-user fa-fw"></i>} id="basic-nav-dropdown">
+                        <NavDropdown eventKey={1} title={<i className="fa fa-user fa-fw"></i>} id="top-menu">
                             <MenuItem eventKey={1.1}>
                                     <span>
                                        <i className="fa fa-user fa-fw"></i> User Profile
@@ -85,7 +85,7 @@ class Header extends Component {
                         <Navbar.Brand>
                             <Link to="/">{this.state.title}</Link>
                         </Navbar.Brand>
-                        <Navbar.Toggle data-toggle="collapse" data-target=".sidebar-nav"/>
+                        <Navbar.Toggle data-toggle="collapse" data-target="#sidebar"/>
                     </Navbar.Header>
                     {this.displayMenu()}
                 </Navbar>

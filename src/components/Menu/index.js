@@ -44,9 +44,9 @@ class Menu extends Component {
         const {isAuthenticated} = this.props;
         if (isAuthenticated) {
             return (
-                <div className={styles['sidebar']}>
+                <div className={`navbar-collapse collapse ${styles.sidebar}`} id="sidebar">
                     <nav>
-                        <ul className={styles['cd-accordion-menu']}>
+                        <ul className={styles.navigation}>
                             <li>
                                 <Link to="/dashboard">
                                     <i className="fa fa-tachometer fa-fw"></i>

@@ -8,7 +8,7 @@ body {
     margin: 0;
     overflow-x: hidden;
     color: #67757c;
-    height:100vh;
+    height: 100vh;
 }
 
 html {
@@ -112,3 +112,11 @@ h6 {
 .navbar {
     margin-bottom: 0;
 }
+
+@media all and (max-width: 700px) {
+    .navbar-form {
+        padding: 5px 10px 5px 15px;
+        margin-bottom: 0;
+    }
+}
+
