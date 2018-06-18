@@ -7,7 +7,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Header, Menu, Breadcrumbs} from 'components/index';
+import {Header, Footer, Menu, Breadcrumbs} from 'components/index';
 import styles from './styles.css';
 
 class App extends Component {
@@ -24,6 +24,7 @@ class App extends Component {
                     <div className={styles.main}>
                         <Breadcrumbs />
                         {this.props.children}
+                        <Footer />
                     </div>
                 </div>
             </div>
