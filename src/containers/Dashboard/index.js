@@ -40,7 +40,6 @@ class Dashboard extends Component {
      * @returns {XML}
      */
     render() {
-        console.log(this.props.user);
         return (
             <Grid fluid>
                 <Row>

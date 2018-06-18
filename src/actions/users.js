@@ -11,7 +11,8 @@
  */
 
 import {
-    GET_USER
+    GET_USER,
+    UPDATE_USER
 } from 'shared/actions';
 
 const config = require('config');
@@ -19,7 +20,7 @@ const config = require('config');
 export function get(userId) {
     return {
         type: GET_USER,
-        promise: fetch(`${config.api.host}:${config.api.port}/user/${userId}`, {
+        promise: fetch(`${config.api.host}:${config.api.port}/users/${userId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,3 +31,19 @@ export function get(userId) {
         })
     };
 }
+
+export function update(user) {
+    return {
+        type: UPDATE_USER,
+        promise: fetch(`${config.api.host}:${config.api.port}/users/${user.id}`, {
+            method: 'PUT',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
+            },
+            body: JSON.stringify(user)
+        })
+    };
+}
+

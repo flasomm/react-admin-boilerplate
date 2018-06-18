@@ -25,3 +25,4 @@ export const IS_LOGOUT = 'IS_LOGOUT';
 
 /* users */
 export const GET_USER = 'GET_USER';
+export const UPDATE_USER = 'UPDATE_USER';

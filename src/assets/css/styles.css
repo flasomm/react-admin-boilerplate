@@ -86,13 +86,18 @@ h6 {
     width: 100%;
 }
 
+.main-padding {
+    padding: 0 30px;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
 @media (min-width: 1024px) {
     .page-wrapper {
         margin-left: 240px;
-    }
-
-    .footer {
-        left: 240px;
     }
 }
 
@@ -102,10 +107,6 @@ h6 {
         -webkit-transition: 0.2s ease-in;
         -o-transition: 0.2s ease-in;
         transition: 0.2s ease-in;
-    }
-
-    .footer {
-        left: 60px;
     }
 }
 
@@ -119,4 +120,5 @@ h6 {
         margin-bottom: 0;
     }
 }
+
 

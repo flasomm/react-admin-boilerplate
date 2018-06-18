@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
@@ -32,7 +32,8 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: config.app.title
+            title: config.app.title,
+            redirect: false
         };
         if (!props.isAuthenticated) {
             setTimeout(() => {
@@ -41,40 +42,53 @@ class Header extends Component {
         }
     }
 
-    displayMenu() {
-        const {isAuthenticated} = this.props;
-        if (isAuthenticated) {
-            return (
-                <div>
-                    <Nav pullRight>
-                        <NavDropdown eventKey={1} title={<i className="fa fa-user fa-fw"></i>} id="top-menu">
-                            <MenuItem eventKey={1.1}>
-                                    <span>
-                                       <i className="fa fa-user fa-fw"></i> User Profile
-                                    </span>
-                            </MenuItem>
-                            <MenuItem eventKey={1.2}>
-                                    <span>
-                                      <i className="fa fa-cog fa-fw"></i> Settings
-                                    </span>
-                            </MenuItem>
-                            <MenuItem divider/>
-                            <MenuItem eventKey={1.3} onClick={this.props.logout}>
-                                    <span>
-                                        <i className="fa fa-sign-out-alt fa-fw"></i> Logout
-                                    </span>
-                            </MenuItem>
-                        </NavDropdown>
-                    </Nav>
-                    <Navbar.Form pullRight>
-                        <FormGroup className="search-form">
-                            <FormControl type="text" placeholder="Search"/>
-                        </FormGroup>
-                    </Navbar.Form>
-                </div>
-            );
+    setRedirect() {
+        this.setState({
+            redirect: true
+        });
+    }
+
+    renderRedirect() {
+        if (this.state.redirect) {
+            return <Redirect to='/profile'/>;
         }
         return null;
+    }
+
+    displayMenu() {
+        if (!this.props.isAuthenticated) {
+            return null;
+        }
+        return (
+            <div>
+                {this.renderRedirect()}
+                <Nav pullRight>
+                    <NavDropdown eventKey={1} title={<i className="fa fa-user fa-fw"></i>} id="user-menu">
+                        <MenuItem eventKey={1.1} onClick={() => this.setRedirect()}>
+                            <span>
+                                <i className="fa fa-user fa-fw"></i> User Profile
+                            </span>
+                        </MenuItem>
+                        <MenuItem eventKey={1.2}>
+                            <span>
+                                <i className="fa fa-cog fa-fw"></i> Settings
+                            </span>
+                        </MenuItem>
+                        <MenuItem divider/>
+                        <MenuItem eventKey={1.3} onClick={this.props.logout}>
+                            <span>
+                                <i className="fa fa-sign-out-alt fa-fw"></i> Logout
+                            </span>
+                        </MenuItem>
+                    </NavDropdown>
+                </Nav>
+                <Navbar.Form pullRight>
+                    <FormGroup className="search-form">
+                        <FormControl type="text" placeholder="Search"/>
+                    </FormGroup>
+                </Navbar.Form>
+            </div>
+        );
     }
 
     render() {

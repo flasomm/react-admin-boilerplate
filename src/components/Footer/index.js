@@ -7,7 +7,7 @@
 
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import {Grid} from 'react-bootstrap';
+import {Grid, Row} from 'react-bootstrap';
 import styles from './styles.css';
 
 const config = require('config');
@@ -20,11 +20,11 @@ class Header extends Component {
         return (
             <footer className={`${styles.footer} navbar-fixed-bottom`}>
                 <Grid fluid>
-                    <div className={`row ${styles['footer-content']}`}>
+                    <Row className={styles['footer-content']}>
                         <Link to="/">
                             <span>© {new Date().getFullYear()} {config.app.title}.</span>
                         </Link>
-                    </div>
+                    </Row>
                 </Grid>
             </footer>
         );

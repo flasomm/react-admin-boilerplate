@@ -41,46 +41,45 @@ class Menu extends Component {
     }
 
     render() {
-        const {isAuthenticated} = this.props;
-        if (isAuthenticated) {
-            return (
-                <div className={`navbar-collapse collapse ${styles.sidebar}`} id="sidebar">
-                    <nav>
-                        <ul className={styles.navigation}>
-                            <li>
-                                <Link to="/dashboard">
-                                    <i className="fa fa-tachometer fa-fw"></i>
-                                    <span>&nbsp;Dashboard</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/users">
-                                    <i className="fa fa-users fa-fw"></i>
-                                    <span>&nbsp;Users</span>
-                                </Link>
-                            </li>
-                            <li className={styles['has-children']}>
-                                <input type="checkbox" name="group-1" id="group-1"/>
-                                <label htmlFor="group-1">
-                                    <i className="fa fa-cog fa-fw"></i>
-                                    <span>&nbsp;System</span>
-                                    <span className={styles['caret-open']}></span>
-                                </label>
-                                <ul>
-                                    <li>
-                                        <Link to="/roles">
-                                            <i className="fa fa-user-circle fa-fw"></i>
-                                            <span>&nbsp;Roles</span>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            );
+        if (!this.props.isAuthenticated) {
+            return null;
         }
-        return null;
+        return (
+            <div className={`navbar-collapse collapse ${styles.sidebar}`} id="sidebar">
+                <nav>
+                    <ul className={styles.navigation}>
+                        <li>
+                            <Link to="/dashboard">
+                                <i className="fa fa-tachometer fa-fw"></i>
+                                <span>&nbsp;Dashboard</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/users">
+                                <i className="fa fa-users fa-fw"></i>
+                                <span>&nbsp;Users</span>
+                            </Link>
+                        </li>
+                        <li className={styles['has-children']}>
+                            <input type="checkbox" name="group-1" id="group-1"/>
+                            <label htmlFor="group-1">
+                                <i className="fa fa-cog fa-fw"></i>
+                                <span>&nbsp;System</span>
+                                <span className={styles['caret-open']}></span>
+                            </label>
+                            <ul>
+                                <li>
+                                    <Link to="/roles">
+                                        <i className="fa fa-user-circle fa-fw"></i>
+                                        <span>&nbsp;Roles</span>
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        );
     }
 }
 const mapStateToProps = (state) => ({

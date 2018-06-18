@@ -11,3 +11,4 @@ export Header from './Header/index';
 export Footer from './Footer/index';
 export Menu from './Menu/index';
 export Breadcrumbs from './Breadcrumbs/index';
+export FieldGroup from './FieldGroup/index';
