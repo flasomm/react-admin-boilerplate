@@ -30,9 +30,9 @@ class Profile extends Component {
         super(props);
         this.state = {
             id: props.user.id,
-            email: props.user.email,
-            firstname: props.user.firstname,
-            lastname: props.user.lastname
+            email: props.user.email || '',
+            firstname: props.user.firstname || '',
+            lastname: props.user.lastname || ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -62,7 +62,7 @@ class Profile extends Component {
      * @returns {XML}
      */
     render() {
-        const title = `Profile: ${this.state.firstname || ''} ${this.state.lastname || ''}`;
+        const title = `Profile: ${this.state.firstname} ${this.state.lastname}`;
         return (
             <Grid fluid className="main-padding">
                 <Row>
@@ -74,27 +74,30 @@ class Profile extends Component {
                             <Form>
                                 <FieldGroup
                                     id="firstname"
+                                    name="firstname"
                                     type="text"
                                     label="Firstname"
                                     required="required"
-                                    value={this.state.firstname || ''}
+                                    value={this.state.firstname}
                                     placeholder="Your Firstname"
                                     onChange={this.handleChange}
                                 />
                                 <FieldGroup
                                     id="lastname"
+                                    name="lastname"
                                     type="text"
                                     label="Lastname"
                                     required="required"
-                                    value={this.state.lastname || ''}
+                                    value={this.state.lastname}
                                     placeholder="Your Lastname"
                                     onChange={this.handleChange}
                                 />
                                 <FieldGroup
                                     id="email"
+                                    name="email"
                                     type="text"
                                     label="Email"
-                                    value={this.state.email || ''}
+                                    value={this.state.email}
                                     required="required"
                                     placeholder="Your Email"
                                     onChange={this.handleChange}
@@ -102,14 +105,14 @@ class Profile extends Component {
                                 <FieldGroup
                                     id="role"
                                     type="role"
+                                    name="role"
                                     disabled
                                     label="Role"
-                                    value={this.props.user.role || ''}
+                                    value={this.props.user.role}
                                     placeholder="Role"
                                 />
                             </Form>
-                            <Button bsStyle="primary" onClick={this.onSubmit}>
-                            </Button>
+                            <Button bsStyle="primary" onClick={this.onSubmit}>Save</Button>
                         </Panel.Body>
                     </Panel>
                 </Row>
@@ -123,7 +126,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    save: () => users.update()
+    save: (state) => users.update(state)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

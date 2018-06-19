@@ -19,6 +19,10 @@ const messages = {
     },
     REQUEST_DENIED: {
         401: 'Unauthorized'
+    },
+    UPDATE_USER: {
+        200: 'User updated with success',
+        404: 'User not found'
     }
 };
 

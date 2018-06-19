@@ -11,7 +11,8 @@
  */
 
 import {
-    GET_USER
+    GET_USER,
+    UPDATE_USER
 } from 'shared/actions';
 
 const INITIAL_STATE = {
@@ -29,6 +30,10 @@ const INITIAL_STATE = {
 export default function users(state = INITIAL_STATE, action) {
     switch (action.type) {
         case GET_USER:
+            return {...state, item: action.payload};
+
+        case UPDATE_USER:
+            console.log(action, state);
             return {...state, item: action.payload};
 
         default:

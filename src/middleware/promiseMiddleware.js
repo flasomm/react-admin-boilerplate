@@ -40,7 +40,7 @@ export default function promiseMiddleware() {
                                 ...rest,
                                 payload,
                                 type: REQUEST_WARNING,
-                                message: (action.error) ? action.error.toString() : payload.messages.join(' ')
+                                message: (action.error) ? action.error.toString() : payload.message
                             });
                         });
                         break;
@@ -63,7 +63,7 @@ export default function promiseMiddleware() {
                                 ...rest,
                                 payload,
                                 type: REQUEST_FAILURE,
-                                message: (action.error) ? action.error.toString() : payload.messages.join(' ')
+                                message: (action.error) ? action.error.toString() : payload.message
                             });
                         });
                         break;
