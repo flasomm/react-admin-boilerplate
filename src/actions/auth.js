@@ -19,7 +19,8 @@ const config = require('config');
 
 const tokenHasExpired = (token) => {
     const decodedToken = jwt.decode(token);
-    return decodedToken.exp > new Date().getTime();
+    const currentTime = new Date().getTime() / 1000;
+    return currentTime > decodedToken.exp;
 };
 
 const decodeToken = (token) => {
@@ -67,7 +68,7 @@ export const isLoggedIn = () => (dispatch) => {
 export const login = (email, password) => dispatch => new Promise(resolve => {
     dispatch(loginRequest());
 
-    fetch(`${config.api.host}:${config.api.port}/signin`, {
+    fetch(`${config.api.url}/signin`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',

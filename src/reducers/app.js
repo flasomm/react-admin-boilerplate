@@ -36,7 +36,10 @@ const INITIAL_STATE = {
 export default function app(state = INITIAL_STATE, action) {
     switch (action.type) {
         case REQUEST_DENIED:
-            return {...state, isAuthenticated: false, user: {}};
+            const newState = {...action.state};
+            newState.auth.isAuthenticated = false;
+            newState.auth.user = {};
+            return {...newState};
 
         case REQUEST_NOT_FOUND:
             return {toasterMsg: notify('info', action.message)};

@@ -33,7 +33,6 @@ export default function users(state = INITIAL_STATE, action) {
             return {...state, item: action.payload};
 
         case UPDATE_USER:
-            console.log(action, state);
             return {...state, item: action.payload};
 
         default:

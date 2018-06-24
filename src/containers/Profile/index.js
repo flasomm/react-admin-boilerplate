@@ -19,6 +19,7 @@ import {users} from 'actions/index';
 class Profile extends Component {
     static propTypes = {
         user: PropTypes.object,
+        get: PropTypes.func,
         save: PropTypes.func
     };
 
@@ -36,6 +37,15 @@ class Profile extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.get(this.props.user.id);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        console.log('==>', props, state);
+        return {...props};
     }
 
     /**
@@ -126,6 +136,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+    get: (id) => users.get(id),
     save: (state) => users.update(state)
 }, dispatch);
 

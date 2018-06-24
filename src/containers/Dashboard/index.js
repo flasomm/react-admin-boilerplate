@@ -31,7 +31,7 @@ class Dashboard extends Component {
         console.log('test create');
     }
 
-    UNSAFE_componentWillMount() { // eslint-disable-line camelcase
+    componentDidMount() {
         this.props.usersActions.get(this.props.authUser.id);
     }
 
