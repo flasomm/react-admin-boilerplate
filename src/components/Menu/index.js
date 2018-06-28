@@ -1,12 +1,7 @@
 /**
- * This program belongs to Physalix.
- * It is considered a trade secret, and is not to be divulged or used
- * by parties who have not received written authorization from the owner.
- * For more details please contact us on fs@physalix.com
- *
- * @author   Fabrice Sommavilla <fs@physalix.com>
- * @company  Physalix
- * @version  0.1
+ * Copyright (c) 2018-Physalix, Fabrice Sommavilla.
+ * Licensed under the MIT License (MIT).
+ * See https://github.com/flasomm/react-starter-boilerplate
  * @date     10/06/2018
  */
 

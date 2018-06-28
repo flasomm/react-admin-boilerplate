@@ -6,7 +6,8 @@
  */
 
 import React, {Component} from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {LinkContainer} from 'react-router-bootstrap';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
@@ -32,8 +33,7 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: config.app.title,
-            redirect: false
+            title: config.app.title
         };
         if (!props.isAuthenticated) {
             setTimeout(() => {
@@ -42,33 +42,21 @@ class Header extends Component {
         }
     }
 
-    setRedirect() {
-        this.setState({
-            redirect: true
-        });
-    }
-
-    renderRedirect() {
-        if (this.state.redirect) {
-            return <Redirect to='/profile'/>;
-        }
-        return null;
-    }
-
     displayMenu() {
         if (!this.props.isAuthenticated) {
             return null;
         }
         return (
             <div>
-                {this.renderRedirect()}
                 <Nav pullRight>
                     <NavDropdown eventKey={1} title={<i className="fa fa-user fa-fw"></i>} id="user-menu">
-                        <MenuItem eventKey={1.1} onClick={() => this.setRedirect()}>
-                            <span>
-                                <i className="fa fa-user fa-fw"></i> User Profile
-                            </span>
-                        </MenuItem>
+                        <LinkContainer to="/profile">
+                            <MenuItem eventKey={1.1}>
+                                <span>
+                                    <i className="fa fa-user fa-fw"></i> User Profile
+                                </span>
+                            </MenuItem>
+                        </LinkContainer>
                         <MenuItem eventKey={1.2}>
                             <span>
                                 <i className="fa fa-cog fa-fw"></i> Settings
@@ -77,7 +65,7 @@ class Header extends Component {
                         <MenuItem divider/>
                         <MenuItem eventKey={1.3} onClick={this.props.logout}>
                             <span>
-                                <i className="fa fa-sign-out-alt fa-fw"></i> Logout
+                                <i className="fa fa-sign-out fa-fw"></i> Logout
                             </span>
                         </MenuItem>
                     </NavDropdown>

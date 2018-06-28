@@ -19,6 +19,7 @@ import {users} from 'actions/index';
 class Profile extends Component {
     static propTypes = {
         user: PropTypes.object,
+        authUser: PropTypes.object,
         get: PropTypes.func,
         save: PropTypes.func
     };
@@ -30,22 +31,22 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: props.user.id,
+            id: props.authUser.id,
             email: props.user.email || '',
             firstname: props.user.firstname || '',
-            lastname: props.user.lastname || ''
+            lastname: props.user.lastname || '',
+            role: props.user.role || ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
-        this.props.get(this.props.user.id);
+        this.props.get(this.props.authUser.id);
     }
 
-    static getDerivedStateFromProps(props, state) {
-        console.log('==>', props, state);
-        return {...props};
+    static getDerivedStateFromProps(props) {
+        return props.user;
     }
 
     /**
@@ -118,7 +119,7 @@ class Profile extends Component {
                                     name="role"
                                     disabled
                                     label="Role"
-                                    value={this.props.user.role}
+                                    value={this.state.role}
                                     placeholder="Role"
                                 />
                             </Form>
@@ -132,7 +133,8 @@ class Profile extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    user: state.auth.user
+    authUser: state.auth.user,
+    user: state.users.item
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
