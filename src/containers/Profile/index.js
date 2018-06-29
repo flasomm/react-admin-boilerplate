@@ -31,22 +31,25 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: props.authUser.id,
-            email: props.user.email || '',
-            firstname: props.user.firstname || '',
-            lastname: props.user.lastname || '',
-            role: props.user.role || ''
+            profile: {
+                id: props.authUser.id,
+                email: props.user.email || '',
+                firstname: props.user.firstname || '',
+                lastname: props.user.lastname || '',
+                role: props.user.role || ''
+            },
+            formHasChanged: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    componentDidMount() {
-        this.props.get(this.props.authUser.id);
-    }
-
     static getDerivedStateFromProps(props) {
         return props.user;
+    }
+
+    componentDidMount() {
+        this.props.get(this.props.authUser.id);
     }
 
     /**
@@ -55,7 +58,8 @@ class Profile extends Component {
      */
     handleChange(event) {
         const state = {...this.state};
-        state[event.target.name] = event.target.value;
+        state['profile'][event.target.name] = event.target.value;
+        state['formHasChanged'] = true;
         this.setState(state);
     }
 
@@ -65,7 +69,8 @@ class Profile extends Component {
      */
     onSubmit(e) {
         e.preventDefault();
-        this.props.save(this.state);
+        this.props.save(this.state.profile);
+        this.setState({formHasChanged: false});
     }
 
     /**
@@ -73,7 +78,7 @@ class Profile extends Component {
      * @returns {XML}
      */
     render() {
-        const title = `Profile: ${this.state.firstname} ${this.state.lastname}`;
+        const title = `Profile: ${this.state.profile.firstname} ${this.state.profile.lastname}`;
         return (
             <Grid fluid className="main-padding">
                 <Row>
@@ -89,7 +94,7 @@ class Profile extends Component {
                                     type="text"
                                     label="Firstname"
                                     required="required"
-                                    value={this.state.firstname}
+                                    value={this.state.profile.firstname}
                                     placeholder="Your Firstname"
                                     onChange={this.handleChange}
                                 />
@@ -99,7 +104,7 @@ class Profile extends Component {
                                     type="text"
                                     label="Lastname"
                                     required="required"
-                                    value={this.state.lastname}
+                                    value={this.state.profile.lastname}
                                     placeholder="Your Lastname"
                                     onChange={this.handleChange}
                                 />
@@ -108,7 +113,7 @@ class Profile extends Component {
                                     name="email"
                                     type="text"
                                     label="Email"
-                                    value={this.state.email}
+                                    value={this.state.profile.email}
                                     required="required"
                                     placeholder="Your Email"
                                     onChange={this.handleChange}
@@ -119,11 +124,11 @@ class Profile extends Component {
                                     name="role"
                                     disabled
                                     label="Role"
-                                    value={this.state.role}
+                                    value={this.state.profile.role}
                                     placeholder="Role"
                                 />
                             </Form>
-                            <Button bsStyle="primary" onClick={this.onSubmit}>Save</Button>
+                            <Button bsStyle="primary" disabled={!this.state.formHasChanged} onClick={this.onSubmit}>Save</Button>
                         </Panel.Body>
                     </Panel>
                 </Row>

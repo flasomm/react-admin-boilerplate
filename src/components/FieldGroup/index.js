@@ -28,7 +28,9 @@ class FieldGroup extends Component {
         return (
             <FormGroup controlId={id}>
                 <ControlLabel>{label}</ControlLabel>
-                <span className="required">*</span>
+                {
+                    (props.required) ? <span className="required">*</span> : ''
+                }
                 <FormControl {...props} />
                 {help && <HelpBlock>{help}</HelpBlock>}
             </FormGroup>
