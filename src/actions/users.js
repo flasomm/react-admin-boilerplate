@@ -7,10 +7,24 @@
 
 import {
     GET_USER,
-    UPDATE_USER
+    UPDATE_USER,
+    GET_ALL_USERS
 } from 'shared/actions';
 
 const config = require('config');
+
+export const getAll = () => ({
+    type: GET_ALL_USERS,
+    promise: fetch(`${config.api.url}/users`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
+        },
+        mode: 'cors',
+        cache: 'default'
+    })
+});
 
 export const get = (userId) => ({
     type: GET_USER,

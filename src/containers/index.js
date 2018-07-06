@@ -13,5 +13,6 @@
 export App from './App/index';
 export Dashboard from './Dashboard/index';
 export Login from './Login/index';
-export Profile from './Profile/index';
 export NotFound from './NotFound/index';
+export Profile from './Profile/index';
+export Users from './Users/index';

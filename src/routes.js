@@ -8,13 +8,14 @@
 import React from 'react';
 import {Route, Switch} from 'react-router';
 import {PrivateRoute, PublicRoute} from 'components/index';
-import {Dashboard, Login, NotFound, Profile} from 'containers/index';
+import {Dashboard, Login, NotFound, Profile, Users} from 'containers/index';
 
 export default () => (
     <Switch>
         <PublicRoute path="/" component={Login} exact={true}/>
         <PrivateRoute path="/dashboard" component={Dashboard} exact={true}/>
         <PrivateRoute path="/profile" component={Profile} exact={true}/>
+        <PrivateRoute path="/users" component={Users} exact={true}/>
         <Route component={NotFound}/>
     </Switch>
 );
