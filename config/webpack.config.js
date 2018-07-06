@@ -28,7 +28,9 @@ module.exports = {
     entry: {
         main: './src/index.js',
         login: './src/containers/Login/index.js',
-        dashboard: './src/containers/Dashboard/index.js'
+        dashboard: './src/containers/Dashboard/index.js',
+        profile: './src/containers/Profile/index.js',
+        users: './src/containers/Users/index.js'
     },
     output: {
         filename: '[name].bundle.js',
@@ -134,6 +136,7 @@ module.exports = {
             actions: path.resolve(__dirname, '..', 'src/actions'),
             reducers: path.resolve(__dirname, '..', 'src/reducers'),
             shared: path.resolve(__dirname, '..', 'src/shared'),
+            utils: path.resolve(__dirname, '..', 'src/utils'),
             routes: path.resolve(__dirname, '..', 'src/routes'),
             assets: path.resolve(__dirname, '..', 'src/assets')
         },
@@ -187,6 +190,26 @@ module.exports = {
                     reuseExistingChunk: true,
                     test(module, chunks) {
                         return chunks.some(chunk => chunk.name === 'dashboard');
+                    }
+                },
+                profile: {
+                    name: 'profile',
+                    chunks: 'all',
+                    priority: 3,
+                    enforce: true,
+                    reuseExistingChunk: true,
+                    test(module, chunks) {
+                        return chunks.some(chunk => chunk.name === 'profile');
+                    }
+                },
+                users: {
+                    name: 'users',
+                    chunks: 'all',
+                    priority: 3,
+                    enforce: true,
+                    reuseExistingChunk: true,
+                    test(module, chunks) {
+                        return chunks.some(chunk => chunk.name === 'users');
                     }
                 }
             }

@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import {Grid, Row, Panel} from 'react-bootstrap';
 import BootstrapTable from 'react-bootstrap-table-next';
+import {helpers} from 'utils/index';
 import {users} from 'actions/index';
 
 const config = require('config');
@@ -41,9 +42,9 @@ class Users extends Component {
         this.props.getAll();
     }
 
-    priceFormatter(cell, row) {
+    formatDatetime(cell) {
         return (
-            <span>{cell}</span>
+            <span>{helpers.formatIsoDate(cell)}</span>
         );
     }
 
@@ -53,24 +54,35 @@ class Users extends Component {
             text: 'UID'
         }, {
             dataField: 'firstname',
-            text: 'Firstname'
+            text: 'Firstname',
+            sort: true
         }, {
             dataField: 'lastname',
-            text: 'Lastname'
+            text: 'Lastname',
+            sort: true
         }, {
             dataField: 'email',
-            text: 'Email'
+            text: 'Email',
+            sort: true,
         }, {
             dataField: 'role',
-            text: 'Role'
+            text: 'Role',
+            sort: true
         }, {
             dataField: 'updatedAt',
             text: 'Updated At',
-            formatter: priceFormatter
+            sort: true,
+            formatter: this.formatDatetime
         }, {
             dataField: 'createdAt',
             text: 'Created At',
-            formatter: priceFormatter
+            sort: true,
+            formatter: this.formatDatetime
+        }];
+
+        const defaultSorted = [{
+            dataField: 'createdAt',
+            order: 'desc'
         }];
 
         return (
@@ -85,8 +97,14 @@ class Users extends Component {
                             </Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>
-                            <BootstrapTable keyField='_id' data={ this.props.users } columns={ columns } bordered={ false } striped
-                                            hover/>
+                            <BootstrapTable keyField='_id'
+                                            data={ this.props.users }
+                                            columns={ columns }
+                                            defaultSorted={ defaultSorted }
+                                            bordered={ false }
+                                            striped
+                                            hover
+                            />
                         </Panel.Body>
                     </Panel>
 
