@@ -12,9 +12,9 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import {Grid, Row, Panel} from 'react-bootstrap';
-import BootstrapTable from 'react-bootstrap-table-next';
 import {helpers} from 'utils/index';
 import {users} from 'actions/index';
+import {RemoteDataTable} from 'components/index';
 
 const config = require('config');
 
@@ -23,7 +23,8 @@ const config = require('config');
  */
 class Users extends Component {
     static propTypes = {
-        users: PropTypes.array,
+        data: PropTypes.array,
+        totalUsers: PropTypes.number,
         getAll: PropTypes.func
     };
 
@@ -34,18 +35,30 @@ class Users extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: props.users || []
+            data: props.data || [],
+            totalUsers: props.totalUsers,
+            page: 1,
+            sizePerPage: 10
         };
     }
 
     componentDidMount() {
-        this.props.getAll();
+        this.props.getAll(((this.state.page - 1) * this.state.sizePerPage), this.state.sizePerPage);
     }
 
     formatDatetime(cell) {
         return (
             <span>{helpers.formatIsoDate(cell)}</span>
         );
+    }
+
+    onTableChange(type, {filters}) {
+        console.log('type', type);
+        console.log('page', this.state.page);
+        console.log('sizePerPage', this.state.sizePerPage);
+        console.log('filters', filters);
+        const currentIndex = (this.state.page - 1) * this.state.sizePerPage;
+        console.log('currentIndex', currentIndex);
     }
 
     render() {
@@ -63,7 +76,7 @@ class Users extends Component {
         }, {
             dataField: 'email',
             text: 'Email',
-            sort: true,
+            sort: true
         }, {
             dataField: 'role',
             text: 'Role',
@@ -85,6 +98,8 @@ class Users extends Component {
             order: 'desc'
         }];
 
+        const {data, totalUsers} = this.props;
+
         return (
             <Grid fluid className="main-padding">
                 <Helmet title={`Users - ${config.app.title}`}/>
@@ -97,17 +112,16 @@ class Users extends Component {
                             </Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>
-                            <BootstrapTable keyField='_id'
-                                            data={ this.props.users }
-                                            columns={ columns }
-                                            defaultSorted={ defaultSorted }
-                                            bordered={ false }
-                                            striped
-                                            hover
+                            <RemoteDataTable data={ data }
+                                             columns={ columns }
+                                             defaultSorted={ defaultSorted }
+                                             page={ this.state.page }
+                                             sizePerPage={ this.state.sizePerPage }
+                                             totalSize={ totalUsers }
+                                             onTableChange={ this.onTableChange.bind(this) }
                             />
                         </Panel.Body>
                     </Panel>
-
                 </Row>
             </Grid>
         );
@@ -115,11 +129,12 @@ class Users extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    users: state.users.items
+    data: state.users.items,
+    totalUsers: state.users.totalUsers
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    getAll: () => users.getAll()
+    getAll: (skip, limit) => users.getAll(skip, limit)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

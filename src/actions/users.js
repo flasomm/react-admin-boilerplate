@@ -13,9 +13,9 @@ import {
 
 const config = require('config');
 
-export const getAll = () => ({
+export const getAll = (skip, limit) => ({
     type: GET_ALL_USERS,
-    promise: fetch(`${config.api.url}/users`, {
+    promise: fetch(`${config.api.url}/users?skip=${skip}&limit=${limit}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
