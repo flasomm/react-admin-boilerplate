@@ -5,13 +5,13 @@
  * @date  30/06/2018
  */
 
-
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import {Grid, Row, Panel} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 import {helpers} from 'utils/index';
 import {users} from 'actions/index';
 import {RemoteDataTable} from 'components/index';
@@ -23,7 +23,7 @@ const config = require('config');
  */
 class Users extends Component {
     static propTypes = {
-        data: PropTypes.array,
+        users: PropTypes.array,
         totalUsers: PropTypes.number,
         getAll: PropTypes.func
     };
@@ -35,15 +35,17 @@ class Users extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: props.data || [],
+            users: props.users || [],
             totalUsers: props.totalUsers,
             page: 1,
-            sizePerPage: 10
+            sizePerPage: 10,
+            loading: false,
+            type: ''
         };
     }
 
     componentDidMount() {
-        this.props.getAll(((this.state.page - 1) * this.state.sizePerPage), this.state.sizePerPage);
+        this.props.getAll(0, this.state.sizePerPage);
     }
 
     formatDatetime(cell) {
@@ -52,20 +54,34 @@ class Users extends Component {
         );
     }
 
-    onTableChange(type, {filters}) {
-        console.log('type', type);
-        console.log('page', this.state.page);
-        console.log('sizePerPage', this.state.sizePerPage);
-        console.log('filters', filters);
-        const currentIndex = (this.state.page - 1) * this.state.sizePerPage;
-        console.log('currentIndex', currentIndex);
+    displayActions(cell) {
+        return (
+            <Link to={`/user/${cell}`}
+                  className="btn btn-primary btn-xs"
+                  role="button"
+                  aria-disabled="true">Show
+            </Link>
+        );
+    }
+
+    onTableChange(type, {page, sizePerPage}) {
+        const currentIndex = (page - 1) * sizePerPage;
+        this.props.getAll(currentIndex, sizePerPage);
+        setTimeout(() => {
+            this.setState(() => ({
+                page,
+                users: this.props.users,
+                totalSize: this.props.totalUsers,
+                sizePerPage,
+                loading: false,
+                type: type
+            }));
+        }, 1000);
+        this.setState(() => ({loading: true}));
     }
 
     render() {
         const columns = [{
-            dataField: '_id',
-            text: 'UID'
-        }, {
             dataField: 'firstname',
             text: 'Firstname',
             sort: true
@@ -91,14 +107,16 @@ class Users extends Component {
             text: 'Created At',
             sort: true,
             formatter: this.formatDatetime
+        }, {
+            dataField: '_id',
+            text: '',
+            formatter: this.displayActions
         }];
 
         const defaultSorted = [{
             dataField: 'createdAt',
             order: 'desc'
         }];
-
-        const {data, totalUsers} = this.props;
 
         return (
             <Grid fluid className="main-padding">
@@ -112,12 +130,13 @@ class Users extends Component {
                             </Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>
-                            <RemoteDataTable data={ data }
+                            <RemoteDataTable data={ this.props.users }
+                                             loading={ this.state.loading }
                                              columns={ columns }
                                              defaultSorted={ defaultSorted }
                                              page={ this.state.page }
                                              sizePerPage={ this.state.sizePerPage }
-                                             totalSize={ totalUsers }
+                                             totalSize={ this.props.totalUsers }
                                              onTableChange={ this.onTableChange.bind(this) }
                             />
                         </Panel.Body>
@@ -129,7 +148,7 @@ class Users extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    data: state.users.items,
+    users: state.users.items,
     totalUsers: state.users.totalUsers
 });
 

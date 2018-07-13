@@ -17,23 +17,37 @@ class RemoteDataTable extends Component {
         columns: PropTypes.array.isRequired,
         defaultSorted: PropTypes.array.isRequired,
         data: PropTypes.array.isRequired,
+        loading: PropTypes.bool.isRequired,
         page: PropTypes.number.isRequired,
         totalSize: PropTypes.number.isRequired,
         sizePerPage: PropTypes.number.isRequired,
         onTableChange: PropTypes.func.isRequired
     };
 
+    static defaultProps = {
+        sizePerPage: 10,
+        page: 1
+    };
+
     render() {
-        const {data, columns, defaultSorted, page, sizePerPage, totalSize, onTableChange} = this.props;
+        const {data, loading, columns, defaultSorted, page, sizePerPage, totalSize, onTableChange} = this.props;
+        const selectRow = {
+            mode: 'checkbox',
+            clickToSelect: true,
+            hideSelectColumn: true,
+            bgColor: '#e8e3ff'
+        };
         return (
             <BootstrapTable keyField='_id'
                             data={ data }
+                            loading={ loading }
                             columns={ columns }
                             defaultSorted={ defaultSorted }
                             remote={{ pagination: true }}
                             filter={ filterFactory() }
                             pagination={ paginationFactory({page, sizePerPage, totalSize }) }
                             onTableChange={ onTableChange }
+                            selectRow={ selectRow }
                             bordered={ false }
                             striped
                             hover

@@ -30,7 +30,8 @@ module.exports = {
         login: './src/containers/Login/index.js',
         dashboard: './src/containers/Dashboard/index.js',
         profile: './src/containers/Profile/index.js',
-        users: './src/containers/Users/index.js'
+        users: './src/containers/Users/index.js',
+        user: './src/containers/User/index.js'
     },
     output: {
         filename: '[name].bundle.js',
@@ -210,6 +211,16 @@ module.exports = {
                     reuseExistingChunk: true,
                     test(module, chunks) {
                         return chunks.some(chunk => chunk.name === 'users');
+                    }
+                },
+                user: {
+                    name: 'user',
+                    chunks: 'all',
+                    priority: 3,
+                    enforce: true,
+                    reuseExistingChunk: true,
+                    test(module, chunks) {
+                        return chunks.some(chunk => chunk.name === 'user');
                     }
                 }
             }

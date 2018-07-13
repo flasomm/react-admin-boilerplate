@@ -2,24 +2,26 @@
  * Copyright (c) 2018-Physalix, Fabrice Sommavilla.
  * Licensed under the MIT License (MIT).
  * See https://github.com/flasomm/react-starter-boilerplate
- * @date  18/06/2018
+ * @date     13/07/2018
  */
 
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import queryString from 'query-string';
 import {Grid, Row, Panel} from 'react-bootstrap';
 import {UserForm} from 'components/index';
 import {users} from 'actions/index';
 
 /**
- * Profile page class.
+ * User page class.
  */
-class Profile extends Component {
+class User extends Component {
     static propTypes = {
         user: PropTypes.object,
-        authUser: PropTypes.object,
+        location: PropTypes.object,
         get: PropTypes.func,
         save: PropTypes.func
     };
@@ -31,23 +33,15 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            profile: {
-                id: props.authUser.id,
-                email: props.user.email || '',
-                firstname: props.user.firstname || '',
-                lastname: props.user.lastname || '',
-                role: props.user.role || ''
-            },
+            user: props.user || {},
             formHasChanged: false
         };
     }
 
-    static getDerivedStateFromProps(props) {
-        return props.user;
-    }
-
     componentDidMount() {
-        this.props.get(this.props.authUser.id);
+        console.log(this.props.location);
+        const params = queryString.parse(this.props.location.search);
+        this.props.get(params.id);
     }
 
     /**
@@ -56,7 +50,7 @@ class Profile extends Component {
      */
     handleChange(event) {
         const state = {...this.state};
-        state['profile'][event.target.name] = event.target.value;
+        state['user'][event.target.name] = event.target.value;
         state['formHasChanged'] = true;
         this.setState(state);
     }
@@ -67,28 +61,28 @@ class Profile extends Component {
      */
     onSubmit(e) {
         e.preventDefault();
-        this.props.save(this.state.profile);
+        this.props.save(this.state.user);
         this.setState({formHasChanged: false});
     }
 
-    /**
-     * Render
-     * @returns {XML}
-     */
     render() {
-        const title = `Profile: ${this.state.profile.firstname} ${this.state.profile.lastname}`;
+        const title = `${this.state.user.firstname} ${this.state.user.lastname}`;
         return (
             <Grid fluid className="main-padding">
+                <Helmet title={`User - ${title}`}/>
                 <Row>
                     <Panel>
                         <Panel.Heading>
-                            <Panel.Title componentClass="h3">{title}</Panel.Title>
+                            <Panel.Title>
+                                <i className="fa fa-user fa-fw"></i>
+                                <span>&nbsp;User {title}</span>
+                            </Panel.Title>
                         </Panel.Heading>
                         <Panel.Body>
-                            <UserForm user={this.state.profile}
-                                      handleChange={this.handleChange.bind(this)}
+                            <UserForm user={this.state.user}
+                                      handleChange={this.handleChange}
                                       formHasChanged={this.state.formHasChanged}
-                                      onSubmit={this.onSubmit.bind(this)}/>
+                                      onSubmit={this.onSubmit}/>
                         </Panel.Body>
                     </Panel>
                 </Row>
@@ -98,7 +92,6 @@ class Profile extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    authUser: state.auth.user,
     user: state.users.item
 });
 
@@ -107,4 +100,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
     save: (state) => users.update(state)
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(User);
