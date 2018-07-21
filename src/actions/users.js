@@ -41,7 +41,7 @@ export const get = (userId) => ({
 
 export const update = (user) => ({
     type: UPDATE_USER,
-    promise: fetch(`${config.api.url}/users/${user.id}`, {
+    promise: fetch(`${config.api.url}/users/${user._id}`, {
         method: 'PUT',
         headers: {
             Accept: 'application/json',

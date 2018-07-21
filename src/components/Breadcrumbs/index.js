@@ -38,7 +38,7 @@ class Breadcrumbs extends Component {
         const name = `${location.pathname.substr(1).charAt(0).toUpperCase()}${location.pathname.substr(1).slice(1)}`;
         if (isAuthenticated) {
             return (
-                <nav className="" aria-label="breadcrumb">
+                <nav aria-label="breadcrumb">
                     <ol className={styles.breadcrumb}>
                         <li className={styles['breadcrumb-item']}>
                             <NavLink to="/" activeClassName="selected">Home</NavLink>

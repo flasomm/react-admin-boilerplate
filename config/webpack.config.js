@@ -26,17 +26,12 @@ module.exports = {
         port: 7000
     },
     entry: {
-        main: './src/index.js',
-        login: './src/containers/Login/index.js',
-        dashboard: './src/containers/Dashboard/index.js',
-        profile: './src/containers/Profile/index.js',
-        users: './src/containers/Users/index.js',
-        user: './src/containers/User/index.js'
+        main: './src/index.js'
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, '..', 'dist'),
-        chunkFilename: '[name].chunk.js'
+        publicPath: '/',
+        path: path.resolve(__dirname, '..', 'dist')
     },
     module: {
         rules: [
@@ -156,75 +151,7 @@ module.exports = {
                     mangle: true
                 }
             })
-        ],
-        splitChunks: {
-            chunks: "async",
-            minSize: 30000,
-            minChunks: 1,
-            maxAsyncRequests: 10,
-            maxInitialRequests: 5,
-            name: true,
-            cacheGroups: {
-                vendors: {
-                    name: 'vendors',
-                    chunks: 'all',
-                    reuseExistingChunk: true,
-                    priority: 1,
-                    enforce: true,
-                    test: /[\\/]node_modules[\\/]/
-                },
-                login: {
-                    name: 'login',
-                    chunks: 'all',
-                    priority: 2,
-                    enforce: true,
-                    reuseExistingChunk: true,
-                    test(module, chunks) {
-                        return chunks.some(chunk => chunk.name === 'login');
-                    }
-                },
-                dashboard: {
-                    name: 'dashboard',
-                    chunks: 'all',
-                    priority: 3,
-                    enforce: true,
-                    reuseExistingChunk: true,
-                    test(module, chunks) {
-                        return chunks.some(chunk => chunk.name === 'dashboard');
-                    }
-                },
-                profile: {
-                    name: 'profile',
-                    chunks: 'all',
-                    priority: 3,
-                    enforce: true,
-                    reuseExistingChunk: true,
-                    test(module, chunks) {
-                        return chunks.some(chunk => chunk.name === 'profile');
-                    }
-                },
-                users: {
-                    name: 'users',
-                    chunks: 'all',
-                    priority: 3,
-                    enforce: true,
-                    reuseExistingChunk: true,
-                    test(module, chunks) {
-                        return chunks.some(chunk => chunk.name === 'users');
-                    }
-                },
-                user: {
-                    name: 'user',
-                    chunks: 'all',
-                    priority: 3,
-                    enforce: true,
-                    reuseExistingChunk: true,
-                    test(module, chunks) {
-                        return chunks.some(chunk => chunk.name === 'user');
-                    }
-                }
-            }
-        }
+        ]
     },
     plugins: [
         //new BundleAnalyzerPlugin(),

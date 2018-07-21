@@ -29,7 +29,7 @@ class UserForm extends Component {
                                  type="text"
                                  label="Firstname"
                                  required="required"
-                                 value={user.firstname}
+                                 value={user.firstname || ''}
                                  placeholder="Your Firstname"
                                  onChange={handleChange}
                     />
@@ -43,7 +43,7 @@ class UserForm extends Component {
                                  type="text"
                                  label="Lastname"
                                  required="required"
-                                 value={user.lastname}
+                                 value={user.lastname || ''}
                                  placeholder="Your Lastname"
                                  onChange={handleChange}
                     />
@@ -56,7 +56,7 @@ class UserForm extends Component {
                                  name="email"
                                  type="email"
                                  label="Email"
-                                 value={user.email}
+                                 value={user.email || ''}
                                  required="required"
                                  placeholder="Your Email"
                                  onChange={handleChange}
@@ -70,7 +70,7 @@ class UserForm extends Component {
                                  name="role"
                                  type="text"
                                  label="Role"
-                                 value={user.role}
+                                 value={user.role || ''}
                                  required="required"
                                  placeholder="Your Role"
                                  onChange={handleChange}

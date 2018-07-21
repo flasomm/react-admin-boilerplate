@@ -10,7 +10,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import queryString from 'query-string';
 import {Grid, Row, Panel} from 'react-bootstrap';
 import {UserForm} from 'components/index';
 import {users} from 'actions/index';
@@ -23,7 +22,8 @@ class User extends Component {
         user: PropTypes.object,
         location: PropTypes.object,
         get: PropTypes.func,
-        save: PropTypes.func
+        save: PropTypes.func,
+        match: PropTypes.object
     };
 
     /**
@@ -33,15 +33,20 @@ class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: props.user || {},
+            user: {},
+            formHasChanged: false
+        };
+    }
+
+    static getDerivedStateFromProps(nextProps) {
+        return {
+            user: nextProps.user,
             formHasChanged: false
         };
     }
 
     componentDidMount() {
-        console.log(this.props.location);
-        const params = queryString.parse(this.props.location.search);
-        this.props.get(params.id);
+        this.props.get(this.props.match.params.id);
     }
 
     /**
@@ -80,9 +85,9 @@ class User extends Component {
                         </Panel.Heading>
                         <Panel.Body>
                             <UserForm user={this.state.user}
-                                      handleChange={this.handleChange}
+                                      handleChange={this.handleChange.bind(this)}
                                       formHasChanged={this.state.formHasChanged}
-                                      onSubmit={this.onSubmit}/>
+                                      onSubmit={this.onSubmit.bind(this)}/>
                         </Panel.Body>
                     </Panel>
                 </Row>

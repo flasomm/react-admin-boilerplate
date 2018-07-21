@@ -31,19 +31,16 @@ class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            profile: {
-                id: props.authUser.id,
-                email: props.user.email || '',
-                firstname: props.user.firstname || '',
-                lastname: props.user.lastname || '',
-                role: props.user.role || ''
-            },
+            profile: {},
             formHasChanged: false
         };
     }
 
     static getDerivedStateFromProps(props) {
-        return props.user;
+        return {
+            profile: props.user,
+            formHasChanged: false
+        };
     }
 
     componentDidMount() {
