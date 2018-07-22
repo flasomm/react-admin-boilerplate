@@ -16,7 +16,7 @@ export default () => (
         <PrivateRoute path="/dashboard" component={Dashboard} exact={true}/>
         <PrivateRoute path="/profile" component={Profile} exact={true}/>
         <PrivateRoute path="/users" component={Users} exact={true}/>
-        <PrivateRoute path="/user/:id" component={User} exact={true}/>
+        <PrivateRoute path="/users/:id" component={User} exact={true}/>
         <Route component={NotFound}/>
     </Switch>
 );

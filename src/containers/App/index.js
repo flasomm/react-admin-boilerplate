@@ -7,9 +7,12 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Header, Footer, Menu, Breadcrumbs} from 'components/index';
+import {Header, Footer, Menu} from 'components/index';
 import styles from './styles.css';
 
+/**
+ * App page class.
+ */
 class App extends Component {
     static propTypes = {
         children: PropTypes.node
@@ -22,7 +25,6 @@ class App extends Component {
                 <div className={styles['app-body']}>
                     <Menu />
                     <div className={styles.main}>
-                        <Breadcrumbs />
                         {this.props.children}
                         <Footer />
                     </div>

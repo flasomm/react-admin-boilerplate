@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import {Grid, Row, Panel} from 'react-bootstrap';
-import {UserForm} from 'components/index';
+import {UserForm, Breadcrumbs} from 'components/index';
 import {users} from 'actions/index';
 
 /**
@@ -75,21 +75,24 @@ class Profile extends Component {
     render() {
         const title = `Profile: ${this.state.profile.firstname} ${this.state.profile.lastname}`;
         return (
-            <Grid fluid className="main-padding">
-                <Row>
-                    <Panel>
-                        <Panel.Heading>
-                            <Panel.Title componentClass="h3">{title}</Panel.Title>
-                        </Panel.Heading>
-                        <Panel.Body>
-                            <UserForm user={this.state.profile}
-                                      handleChange={this.handleChange.bind(this)}
-                                      formHasChanged={this.state.formHasChanged}
-                                      onSubmit={this.onSubmit.bind(this)}/>
-                        </Panel.Body>
-                    </Panel>
-                </Row>
-            </Grid>
+            <div>
+                <Breadcrumbs />
+                <Grid fluid className="main-padding">
+                    <Row>
+                        <Panel>
+                            <Panel.Heading>
+                                <Panel.Title componentClass="h3">{title}</Panel.Title>
+                            </Panel.Heading>
+                            <Panel.Body>
+                                <UserForm user={this.state.profile}
+                                          handleChange={this.handleChange.bind(this)}
+                                          formHasChanged={this.state.formHasChanged}
+                                          onSubmit={this.onSubmit.bind(this)}/>
+                            </Panel.Body>
+                        </Panel>
+                    </Row>
+                </Grid>
+            </div>
         );
     }
 }

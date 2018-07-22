@@ -13,11 +13,15 @@ import PropTypes from 'prop-types';
 import {auth} from 'actions/index';
 import styles from './styles.css';
 
+/**
+ * Breadcrumbs page class.
+ */
 class Breadcrumbs extends Component {
     static propTypes = {
-        isAuthenticated: PropTypes.bool,
         isLoggedIn: PropTypes.func.isRequired,
-        location: PropTypes.object
+        isAuthenticated: PropTypes.bool,
+        location: PropTypes.object,
+        title: PropTypes.string
     };
 
     static defaultProps = {
@@ -34,8 +38,9 @@ class Breadcrumbs extends Component {
     }
 
     displayCrumbs() {
-        const {isAuthenticated, location} = this.props;
-        const name = `${location.pathname.substr(1).charAt(0).toUpperCase()}${location.pathname.substr(1).slice(1)}`;
+        const {isAuthenticated, location, title} = this.props;
+        const path = location.pathname.split('/')[1];
+        const section = `${path.charAt(0).toUpperCase()}${path.substr(1)}`;
         if (isAuthenticated) {
             return (
                 <nav aria-label="breadcrumb">
@@ -43,7 +48,12 @@ class Breadcrumbs extends Component {
                         <li className={styles['breadcrumb-item']}>
                             <NavLink to="/" activeClassName="selected">Home</NavLink>
                         </li>
-                        <li className={`${styles.active} ${styles['breadcrumb-item']}`} aria-current="page">{name}</li>
+                        <li className={`${styles.active} ${styles['breadcrumb-item']}`} aria-current="page">
+                            { (title) ? <NavLink to={`/${path}`} activeClassName="selected">{section}</NavLink> : section }
+                        </li>
+                        { (title) ?
+                            <li className={`${styles.active} ${styles['breadcrumb-item']}`} aria-current="page">{title}</li> : ''
+                        }
                     </ol>
                 </nav>
             );

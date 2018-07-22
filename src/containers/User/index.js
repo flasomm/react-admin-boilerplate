@@ -11,7 +11,7 @@ import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import {Grid, Row, Panel} from 'react-bootstrap';
-import {UserForm} from 'components/index';
+import {UserForm, Breadcrumbs} from 'components/index';
 import {users} from 'actions/index';
 
 /**
@@ -73,25 +73,28 @@ class User extends Component {
     render() {
         const title = `${this.state.user.firstname} ${this.state.user.lastname}`;
         return (
-            <Grid fluid className="main-padding">
-                <Helmet title={`User - ${title}`}/>
-                <Row>
-                    <Panel>
-                        <Panel.Heading>
-                            <Panel.Title>
-                                <i className="fa fa-user fa-fw"></i>
-                                <span>&nbsp;User {title}</span>
-                            </Panel.Title>
-                        </Panel.Heading>
-                        <Panel.Body>
-                            <UserForm user={this.state.user}
-                                      handleChange={this.handleChange.bind(this)}
-                                      formHasChanged={this.state.formHasChanged}
-                                      onSubmit={this.onSubmit.bind(this)}/>
-                        </Panel.Body>
-                    </Panel>
-                </Row>
-            </Grid>
+            <div>
+                <Breadcrumbs title={title}/>
+                <Grid fluid className="main-padding">
+                    <Helmet title={`User - ${title}`}/>
+                    <Row>
+                        <Panel>
+                            <Panel.Heading>
+                                <Panel.Title>
+                                    <i className="fa fa-user fa-fw"></i>
+                                    <span>&nbsp;User {title}</span>
+                                </Panel.Title>
+                            </Panel.Heading>
+                            <Panel.Body>
+                                <UserForm user={this.state.user}
+                                          handleChange={this.handleChange.bind(this)}
+                                          formHasChanged={this.state.formHasChanged}
+                                          onSubmit={this.onSubmit.bind(this)}/>
+                            </Panel.Body>
+                        </Panel>
+                    </Row>
+                </Grid>
+            </div>
         );
     }
 }

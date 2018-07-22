@@ -14,7 +14,7 @@ import {Grid, Row, Panel} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {helpers} from 'utils/index';
 import {users} from 'actions/index';
-import {RemoteDataTable} from 'components/index';
+import {RemoteDataTable, Breadcrumbs} from 'components/index';
 
 const config = require('config');
 
@@ -56,7 +56,7 @@ class Users extends Component {
 
     displayActions(cell) {
         return (
-            <Link to={`/user/${cell}`}
+            <Link to={`/users/${cell}`}
                   className="btn btn-primary btn-xs"
                   role="button"
                   aria-disabled="true">Show
@@ -119,30 +119,33 @@ class Users extends Component {
         }];
 
         return (
-            <Grid fluid className="main-padding">
-                <Helmet title={`Users - ${config.app.title}`}/>
-                <Row>
-                    <Panel>
-                        <Panel.Heading>
-                            <Panel.Title>
-                                <i className="fa fa-users fa-fw"></i>
-                                <span>&nbsp;Users</span>
-                            </Panel.Title>
-                        </Panel.Heading>
-                        <Panel.Body>
-                            <RemoteDataTable data={ this.props.users }
-                                             loading={ this.state.loading }
-                                             columns={ columns }
-                                             defaultSorted={ defaultSorted }
-                                             page={ this.state.page }
-                                             sizePerPage={ this.state.sizePerPage }
-                                             totalSize={ this.props.totalUsers }
-                                             onTableChange={ this.onTableChange.bind(this) }
-                            />
-                        </Panel.Body>
-                    </Panel>
-                </Row>
-            </Grid>
+            <div>
+                <Breadcrumbs />
+                <Grid fluid className="main-padding">
+                    <Helmet title={`Users - ${config.app.title}`}/>
+                    <Row>
+                        <Panel>
+                            <Panel.Heading>
+                                <Panel.Title>
+                                    <i className="fa fa-users fa-fw"></i>
+                                    <span>&nbsp;Users</span>
+                                </Panel.Title>
+                            </Panel.Heading>
+                            <Panel.Body>
+                                <RemoteDataTable data={ this.props.users }
+                                                 loading={ this.state.loading }
+                                                 columns={ columns }
+                                                 defaultSorted={ defaultSorted }
+                                                 page={ this.state.page }
+                                                 sizePerPage={ this.state.sizePerPage }
+                                                 totalSize={ this.props.totalUsers }
+                                                 onTableChange={ this.onTableChange.bind(this) }
+                                />
+                            </Panel.Body>
+                        </Panel>
+                    </Row>
+                </Grid>
+            </div>
         );
     }
 }

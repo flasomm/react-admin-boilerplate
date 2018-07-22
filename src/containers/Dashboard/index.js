@@ -13,6 +13,7 @@ import {Grid, Col, Row} from 'react-bootstrap';
 import {Can} from '@casl/react';
 import Helmet from 'react-helmet';
 import {auth, users} from 'actions/index';
+import {Breadcrumbs} from 'components/index';
 
 const config = require('config');
 
@@ -41,17 +42,20 @@ class Dashboard extends Component {
      */
     render() {
         return (
-            <Grid fluid>
-                <Row>
-                    <Col lg={4} md={8}>
-                        <Helmet title={`Dashboard - ${config.app.title}`} />
-                        <div>Dashboard</div>
-                        <Can I="create" a="User" ability={this.props.ability}>
-                            <button onClick={this.createUser.bind(this)}>Create User</button>
-                        </Can>
-                    </Col>
-                </Row>
-            </Grid>
+            <div>
+                <Breadcrumbs />
+                <Grid fluid>
+                    <Row>
+                        <Col lg={4} md={8}>
+                            <Helmet title={`Dashboard - ${config.app.title}`}/>
+                            <div>Dashboard</div>
+                            <Can I="create" a="User" ability={this.props.ability}>
+                                <button onClick={this.createUser.bind(this)}>Create User</button>
+                            </Can>
+                        </Col>
+                    </Row>
+                </Grid>
+            </div>
         );
     }
 }
