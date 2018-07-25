@@ -60,7 +60,7 @@ class Users extends Component {
         );
     }
 
-    onTableChange(type, {page, sizePerPage}) {
+    onTableChange(type, {page = 1, sizePerPage = 10}) {
         const currentIndex = (page - 1) * sizePerPage;
         this.props.getAll(currentIndex, sizePerPage);
         setTimeout(() => {
