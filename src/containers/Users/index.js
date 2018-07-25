@@ -35,17 +35,13 @@ class Users extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            users: props.users || [],
-            totalUsers: props.totalUsers,
+            users: [],
+            totalUsers: 0,
             page: 1,
             sizePerPage: 10,
             loading: false,
             type: ''
         };
-    }
-
-    componentDidMount() {
-        this.props.getAll(0, this.state.sizePerPage);
     }
 
     formatDatetime(cell) {
