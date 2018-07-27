@@ -148,6 +148,7 @@ class Role extends Component {
                                         <ControlLabel>Action</ControlLabel>
                                         <span className="required">*</span>
                                         <Select name="action"
+                                                id="role_action"
                                                 value={this.state.role.action}
                                                 onChange={this.handleChangeSelectAction.bind(this)}
                                                 required={true}
