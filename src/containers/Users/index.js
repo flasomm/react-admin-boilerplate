@@ -24,7 +24,7 @@ const config = require('config');
 class Users extends Component {
     static propTypes = {
         users: PropTypes.array,
-        totalUsers: PropTypes.number,
+        total: PropTypes.number,
         getAll: PropTypes.func
     };
 
@@ -36,7 +36,7 @@ class Users extends Component {
         super(props);
         this.state = {
             users: [],
-            totalUsers: 0,
+            total: 0,
             page: 1,
             sizePerPage: 10,
             loading: false,
@@ -67,12 +67,12 @@ class Users extends Component {
             this.setState(() => ({
                 page,
                 users: this.props.users,
-                totalSize: this.props.totalUsers,
+                totalSize: this.props.total,
                 sizePerPage,
                 loading: false,
                 type: type
             }));
-        }, 1000);
+        }, 100);
         this.setState(() => ({loading: true}));
     }
 
@@ -134,7 +134,7 @@ class Users extends Component {
                                                  defaultSorted={ defaultSorted }
                                                  page={ this.state.page }
                                                  sizePerPage={ this.state.sizePerPage }
-                                                 totalSize={ this.props.totalUsers }
+                                                 totalSize={ this.props.total }
                                                  onTableChange={ this.onTableChange.bind(this) }
                                 />
                             </Panel.Body>
@@ -148,7 +148,7 @@ class Users extends Component {
 
 const mapStateToProps = (state) => ({
     users: state.users.items,
-    totalUsers: state.users.totalUsers
+    total: state.users.total
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

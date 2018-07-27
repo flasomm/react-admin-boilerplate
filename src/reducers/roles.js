@@ -14,7 +14,7 @@ import {
 const INITIAL_STATE = {
     item: {},
     items: [],
-    totalRoles: 0,
+    total: 0,
     isError: false,
     message: ''
 };
@@ -28,7 +28,7 @@ const INITIAL_STATE = {
 export default function roles(state = INITIAL_STATE, action) {
     switch (action.type) {
         case GET_ALL_ROLES:
-            return {...state, items: action.payload.roles, totalRoles: action.payload.total};
+            return {...state, items: action.payload.roles, total: action.payload.total};
 
         case GET_ROLE:
             return {...state, item: action.payload};

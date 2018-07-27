@@ -27,3 +27,8 @@ export const IS_LOGOUT = 'IS_LOGOUT';
 export const GET_ALL_USERS = 'GET_ALL_USERS';
 export const GET_USER = 'GET_USER';
 export const UPDATE_USER = 'UPDATE_USER';
+
+/* roles */
+export const GET_ALL_ROLES = 'GET_ALL_ROLES';
+export const GET_ROLE = 'GET_ROLE';
+export const UPDATE_ROLE = 'UPDATE_ROLE';

@@ -14,7 +14,7 @@ import {
 const INITIAL_STATE = {
     item: {},
     items: [],
-    totalUsers: 0,
+    total: 0,
     isError: false,
     message: ''
 };
@@ -28,7 +28,7 @@ const INITIAL_STATE = {
 export default function users(state = INITIAL_STATE, action) {
     switch (action.type) {
         case GET_ALL_USERS:
-            return {...state, items: action.payload.users, totalUsers: action.payload.total};
+            return {...state, items: action.payload.users, total: action.payload.total};
 
         case GET_USER:
             return {...state, item: action.payload};

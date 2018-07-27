@@ -19,12 +19,12 @@ import {RemoteDataTable, Breadcrumbs} from 'components/index';
 const config = require('config');
 
 /**
- * Users page class.
+ * Roles page class.
  */
 class Roles extends Component {
     static propTypes = {
         roles: PropTypes.array,
-        totalRoles: PropTypes.number,
+        total: PropTypes.number,
         getAll: PropTypes.func
     };
 
@@ -36,7 +36,7 @@ class Roles extends Component {
         super(props);
         this.state = {
             roles: [],
-            totalRoles: 0,
+            total: 0,
             page: 1,
             sizePerPage: 10,
             loading: false,
@@ -67,12 +67,12 @@ class Roles extends Component {
             this.setState(() => ({
                 page,
                 roles: this.props.roles,
-                totalSize: this.props.totalRoles,
+                totalSize: this.props.total,
                 sizePerPage,
                 loading: false,
                 type: type
             }));
-        }, 1000);
+        }, 100);
         this.setState(() => ({loading: true}));
     }
 
@@ -134,7 +134,7 @@ class Roles extends Component {
                                                  defaultSorted={ defaultSorted }
                                                  page={ this.state.page }
                                                  sizePerPage={ this.state.sizePerPage }
-                                                 totalSize={ this.props.totalRoles }
+                                                 totalSize={ this.props.total }
                                                  onTableChange={ this.onTableChange.bind(this) }
                                 />
                             </Panel.Body>
@@ -148,7 +148,7 @@ class Roles extends Component {
 
 const mapStateToProps = (state) => ({
     roles: state.roles.items,
-    totalRoles: state.roles.totalRoles
+    total: state.roles.total
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
