@@ -133,26 +133,38 @@ class Role extends Component {
                                     <FormGroup controlId="resource">
                                         <ControlLabel>Resource</ControlLabel>
                                         <span className="required">*</span>
-                                        <Select name="resource"
-                                                value={this.state.role.resource}
-                                                onChange={this.handleChangeSelectResource.bind(this)}
-                                                required={true}
-                                                options={[
+                                        {
+                                            (this.state.role.resource) ?
+                                                <Select name="resource"
+                                                        defaultValue={{
+                                                    value: this.state.role.resource,
+                                                    label: this.state.role.resource
+                                                }}
+                                                        onChange={this.handleChangeSelectResource.bind(this)}
+                                                        required={true}
+                                                        options={[
                                                     {value: 'user', label: 'user'},
                                                     {value: 'role', label: 'role'}
                                                 ]}
-                                        />
+                                                />
+                                                : null
+                                        }
                                     </FormGroup>
 
                                     <FormGroup controlId="action">
                                         <ControlLabel>Action</ControlLabel>
                                         <span className="required">*</span>
-                                        <Select name="action"
-                                                id="role_action"
-                                                value={this.state.role.action}
-                                                onChange={this.handleChangeSelectAction.bind(this)}
-                                                required={true}
-                                                options={[
+                                        {
+                                            (this.state.role.action) ?
+                                                <Select name="action"
+                                                        id="role_action"
+                                                        defaultValue={{
+                                                    value: this.state.role.action,
+                                                    label: this.state.role.action
+                                                }}
+                                                        onChange={this.handleChangeSelectAction.bind(this)}
+                                                        required={true}
+                                                        options={[
                                                     {value: 'create:any', label: 'create:any'},
                                                     {value: 'read:any', label: 'read:any'},
                                                     {value: 'update:any', label: 'update:any'},
@@ -162,7 +174,9 @@ class Role extends Component {
                                                     {value: 'update:own', label: 'update:own'},
                                                     {value: 'delete:own', label: 'delete:own'}
                                                 ]}
-                                        />
+                                                />
+                                                : null
+                                        }
                                     </FormGroup>
 
                                     <FormGroup controlId="attributes">
