@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import {Grid, Row, Panel} from 'react-bootstrap';
+import {Grid, Row, Panel, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {helpers} from 'utils/index';
 import {roles} from 'actions/index';
@@ -40,6 +40,7 @@ class Roles extends Component {
             page: 1,
             sizePerPage: 10,
             loading: false,
+            selected: [],
             type: ''
         };
     }
@@ -74,6 +75,16 @@ class Roles extends Component {
             }));
         }, 100);
         this.setState(() => ({loading: true}));
+    }
+
+    onSelectDelete() {
+        if (this.state.selected) {
+            console.log('this.state.selected', this.state.selected);
+        }
+    }
+
+    onSelectedRow(selected) {
+        this.setState({selected: selected});
     }
 
     render() {
@@ -125,6 +136,11 @@ class Roles extends Component {
                                 <Panel.Title>
                                     <i className="fa fa-user-circle fa-fw"></i>
                                     <span>&nbsp;Roles</span>
+                                    <Button className="pull-right"
+                                            bsStyle="danger"
+                                            bsSize="xsmall"
+                                            onClick={this.onSelectDelete.bind(this)}>Delete
+                                    </Button>
                                 </Panel.Title>
                             </Panel.Heading>
                             <Panel.Body>
@@ -136,6 +152,7 @@ class Roles extends Component {
                                                  sizePerPage={ this.state.sizePerPage }
                                                  totalSize={ this.props.total }
                                                  onTableChange={ this.onTableChange.bind(this) }
+                                                 onSelectedRow={ this.onSelectedRow.bind(this) }
                                 />
                             </Panel.Body>
                         </Panel>

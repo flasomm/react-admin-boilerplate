@@ -21,7 +21,8 @@ class RemoteDataTable extends Component {
         page: PropTypes.number.isRequired,
         totalSize: PropTypes.number.isRequired,
         sizePerPage: PropTypes.number.isRequired,
-        onTableChange: PropTypes.func.isRequired
+        onTableChange: PropTypes.func.isRequired,
+        onSelectedRow: PropTypes.func.isRequired
     };
 
     static defaultProps = {
@@ -29,10 +30,24 @@ class RemoteDataTable extends Component {
         page: 1
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {selected: []};
+    }
+
+    handleOnSelect(row, isSelect) {
+        const selected = isSelect ? [...this.state.selected, row._id] : this.state.selected.filter(x => x !== row._id);
+        this.setState({
+            selected: selected
+        }, this.props.onSelectedRow(selected));
+    }
+
     render() {
         const {data, loading, columns, defaultSorted, page, sizePerPage, totalSize, onTableChange} = this.props;
         const selectRow = {
             mode: 'checkbox',
+            selected: this.state.selected,
+            onSelect: this.handleOnSelect.bind(this),
             clickToSelect: true,
             hideSelectColumn: true,
             bgColor: '#e8e3ff'

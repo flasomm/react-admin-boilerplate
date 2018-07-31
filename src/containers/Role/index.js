@@ -12,11 +12,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {LinkContainer} from 'react-router-bootstrap';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import {Grid, Row, Panel, Form, FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
+import {Grid, Row, Panel, Form, FormGroup, ControlLabel, FormControl, ButtonToolbar, Button} from 'react-bootstrap';
 import Select from 'react-select';
 import {Breadcrumbs} from 'components/index';
+import {helpers} from 'utils/index';
 import {roles} from 'actions/index';
 
 /**
@@ -99,8 +101,6 @@ class Role extends Component {
 
     render() {
         const title = `${this.state.role.role} [${this.state.role.resource}] [${this.state.role.action}]`;
-        console.log('this.state.role.resource', this.state.role.resource);
-        console.log('this.state.role.action', this.state.role.action);
         return (
             <div>
                 <Breadcrumbs title={title}/>
@@ -116,7 +116,7 @@ class Role extends Component {
                             </Panel.Heading>
                             <Panel.Body>
                                 <Form>
-                                    <FormGroup controlId="role">
+                                    <FormGroup>
                                         <ControlLabel>Role</ControlLabel>
                                         <span className="required">*</span>
                                         <FormControl id="role"
@@ -130,7 +130,7 @@ class Role extends Component {
                                         />
                                     </FormGroup>
 
-                                    <FormGroup controlId="resource">
+                                    <FormGroup>
                                         <ControlLabel>Resource</ControlLabel>
                                         <span className="required">*</span>
                                         {
@@ -151,7 +151,7 @@ class Role extends Component {
                                         }
                                     </FormGroup>
 
-                                    <FormGroup controlId="action">
+                                    <FormGroup>
                                         <ControlLabel>Action</ControlLabel>
                                         <span className="required">*</span>
                                         {
@@ -179,7 +179,7 @@ class Role extends Component {
                                         }
                                     </FormGroup>
 
-                                    <FormGroup controlId="attributes">
+                                    <FormGroup>
                                         <ControlLabel>Attributes</ControlLabel>
                                         <span className="required">*</span>
                                         <FormControl id="attributes"
@@ -192,10 +192,38 @@ class Role extends Component {
                                                      onChange={this.handleChange.bind(this)}
                                         />
                                     </FormGroup>
-                                    <Button bsStyle="primary"
-                                            disabled={!this.state.formHasChanged}
-                                            onClick={this.onSubmit}>Save
-                                    </Button>
+
+                                    <FormGroup>
+                                        <ControlLabel>Created At</ControlLabel>
+                                        <FormControl id="createdAt"
+                                                     name="createdAt"
+                                                     type="text"
+                                                     disabled
+                                                     label="Created At"
+                                                     value={helpers.formatIsoDate(this.state.role.createdAt)}
+                                        />
+                                    </FormGroup>
+
+                                    <FormGroup>
+                                        <ControlLabel>Updated At</ControlLabel>
+                                        <FormControl id="updatedAt"
+                                                     name="updatedAt"
+                                                     type="text"
+                                                     disabled
+                                                     label="Updated At"
+                                                     value={helpers.formatIsoDate(this.state.role.updatedAt)}
+                                        />
+                                    </FormGroup>
+
+                                    <ButtonToolbar>
+                                        <Button bsStyle="primary"
+                                                disabled={!this.state.formHasChanged}
+                                                onClick={this.onSubmit}>Save
+                                        </Button>
+                                        <LinkContainer exact to="/roles">
+                                            <Button>Cancel</Button>
+                                        </LinkContainer>
+                                    </ButtonToolbar>
                                 </Form>
                             </Panel.Body>
                         </Panel>
