@@ -7,7 +7,7 @@
 
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Header, Footer, Menu} from 'components/index';
+import {Header, Footer, Loading, Menu} from 'components/index';
 import styles from './styles.css';
 
 /**
@@ -21,6 +21,7 @@ class App extends Component {
     render() {
         return (
             <div id={styles['main-wrapper']}>
+                <Loading />
                 <Header />
                 <div className={styles['app-body']}>
                     <Menu />

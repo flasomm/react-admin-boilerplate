@@ -125,3 +125,22 @@ h6 {
     color: #333;
     background-color: transparent;
 }
+
+.table-button-toolbar {
+    display: inline-block;
+    float: right;
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    z-index: 10000000;
+}
+
+.loading .fa-spinner {
+    margin-top: 20%;
+}

@@ -8,6 +8,7 @@
 export Breadcrumbs from './Breadcrumbs/index';
 export Footer from './Footer/index';
 export Header from './Header/index';
+export Loading from './Loading/index';
 export Menu from './Menu/index';
 export PrivateRoute from './PrivateRoute/index';
 export PublicRoute from './PublicRoute/index';

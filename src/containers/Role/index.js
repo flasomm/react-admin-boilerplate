@@ -41,7 +41,8 @@ class Role extends Component {
         super(props);
         this.state = {
             role: {},
-            formHasChanged: false
+            formHasChanged: false,
+            action: props.match.params.id === 'new' ? 'create' : 'update'
         };
     }
 
@@ -53,7 +54,9 @@ class Role extends Component {
     }
 
     componentDidMount() {
-        this.props.get(this.props.match.params.id);
+        if (this.state.action === 'update') {
+            this.props.get(this.props.match.params.id);
+        }
     }
 
     /**
@@ -101,6 +104,7 @@ class Role extends Component {
 
     render() {
         const title = `${this.state.role.role} [${this.state.role.resource}] [${this.state.role.action}]`;
+        console.log('this.state.role.resource', this.state.role.resource);
         return (
             <div>
                 <Breadcrumbs title={title}/>
@@ -133,38 +137,32 @@ class Role extends Component {
                                     <FormGroup>
                                         <ControlLabel>Resource</ControlLabel>
                                         <span className="required">*</span>
-                                        {
-                                            (this.state.role.resource) ?
-                                                <Select name="resource"
-                                                        defaultValue={{
+                                        <Select name="resource"
+                                                defaultValue={{
                                                     value: this.state.role.resource,
                                                     label: this.state.role.resource
                                                 }}
-                                                        onChange={this.handleChangeSelectResource.bind(this)}
-                                                        required={true}
-                                                        options={[
+                                                onChange={this.handleChangeSelectResource.bind(this)}
+                                                required={true}
+                                                options={[
                                                     {value: 'user', label: 'user'},
                                                     {value: 'role', label: 'role'}
                                                 ]}
-                                                />
-                                                : null
-                                        }
+                                        />
                                     </FormGroup>
 
                                     <FormGroup>
                                         <ControlLabel>Action</ControlLabel>
                                         <span className="required">*</span>
-                                        {
-                                            (this.state.role.action) ?
-                                                <Select name="action"
-                                                        id="role_action"
-                                                        defaultValue={{
+                                        <Select name="action"
+                                                id="role_action"
+                                                defaultValue={{
                                                     value: this.state.role.action,
                                                     label: this.state.role.action
                                                 }}
-                                                        onChange={this.handleChangeSelectAction.bind(this)}
-                                                        required={true}
-                                                        options={[
+                                                onChange={this.handleChangeSelectAction.bind(this)}
+                                                required={true}
+                                                options={[
                                                     {value: 'create:any', label: 'create:any'},
                                                     {value: 'read:any', label: 'read:any'},
                                                     {value: 'update:any', label: 'update:any'},
@@ -174,9 +172,7 @@ class Role extends Component {
                                                     {value: 'update:own', label: 'update:own'},
                                                     {value: 'delete:own', label: 'delete:own'}
                                                 ]}
-                                                />
-                                                : null
-                                        }
+                                        />
                                     </FormGroup>
 
                                     <FormGroup>
@@ -235,7 +231,8 @@ class Role extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    role: state.roles.item
+    role: state.roles.item,
+    loading: state.app.loading
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

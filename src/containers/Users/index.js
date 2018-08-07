@@ -40,6 +40,7 @@ class Users extends Component {
             page: 1,
             sizePerPage: 10,
             loading: false,
+            selected: [],
             type: ''
         };
     }
@@ -74,6 +75,10 @@ class Users extends Component {
             }));
         }, 100);
         this.setState(() => ({loading: true}));
+    }
+
+    onSelectedRow(selected) {
+        this.setState({selected: selected});
     }
 
     render() {
@@ -136,6 +141,7 @@ class Users extends Component {
                                                  sizePerPage={ this.state.sizePerPage }
                                                  totalSize={ this.props.total }
                                                  onTableChange={ this.onTableChange.bind(this) }
+                                                 onSelectedRow={ this.onSelectedRow.bind(this) }
                                 />
                             </Panel.Body>
                         </Panel>

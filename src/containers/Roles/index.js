@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import {Grid, Row, Panel, Button} from 'react-bootstrap';
+import {Grid, Row, Panel, ButtonToolbar, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {helpers} from 'utils/index';
 import {roles} from 'actions/index';
@@ -136,11 +136,18 @@ class Roles extends Component {
                                 <Panel.Title>
                                     <i className="fa fa-user-circle fa-fw"></i>
                                     <span>&nbsp;Roles</span>
-                                    <Button className="pull-right"
-                                            bsStyle="danger"
-                                            bsSize="xsmall"
-                                            onClick={this.onSelectDelete.bind(this)}>Delete
-                                    </Button>
+                                    <ButtonToolbar className="table-button-toolbar">
+                                        <Button className="pull-right"
+                                                bsStyle="danger"
+                                                bsSize="xsmall"
+                                                onClick={this.onSelectDelete.bind(this)}>Delete
+                                        </Button>
+                                        <Link to={'/roles/new'}
+                                              className="btn btn-primary btn-xs"
+                                              role="button"
+                                              aria-disabled="true">Add
+                                        </Link>
+                                    </ButtonToolbar>
                                 </Panel.Title>
                             </Panel.Heading>
                             <Panel.Body>

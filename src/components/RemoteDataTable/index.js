@@ -36,7 +36,10 @@ class RemoteDataTable extends Component {
     }
 
     handleOnSelect(row, isSelect) {
-        const selected = isSelect ? [...this.state.selected, row._id] : this.state.selected.filter(x => x !== row._id);
+        let selected = [...this.state.selected, row._id];
+        if (!isSelect) {
+            selected = this.state.selected.filter(x => x !== row._id);
+        }
         this.setState({
             selected: selected
         }, this.props.onSelectedRow(selected));
