@@ -10,7 +10,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
 import {routerReducer, routerMiddleware} from 'react-router-redux';
 import loggerMiddleware from 'redux-logger';
-import promiseMiddleware from 'middleware/promiseMiddleware';
+import promiseMiddleware from 'middleware/request';
 import * as reducers from 'reducers/index';
 
 /**

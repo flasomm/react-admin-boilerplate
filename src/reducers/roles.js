@@ -31,6 +31,7 @@ export default function roles(state = INITIAL_STATE, action) {
             return {...state, items: action.payload.roles, total: action.payload.total};
 
         case GET_ROLE:
+            console.log('action', action);
             return {...state, item: action.payload};
 
         case UPDATE_ROLE:

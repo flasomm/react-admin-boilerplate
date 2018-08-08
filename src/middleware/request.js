@@ -18,7 +18,7 @@ import {
 
 import i18n from 'shared/i18n';
 
-export default function promiseMiddleware() {
+export default function request() {
     return next => (action) => {
         const {promise, type, ...rest} = action;
 
@@ -31,8 +31,6 @@ export default function promiseMiddleware() {
 
         return promise
             .then(res => {
-                next({type: END_LOADING});
-
                 switch (res.status) {
                     case 400:
                         res.json().then(payload => {
@@ -42,19 +40,23 @@ export default function promiseMiddleware() {
                                 type: REQUEST_WARNING,
                                 message: (action.error) ? action.error.toString() : payload.message
                             });
+                            next({type: END_LOADING});
                         });
                         break;
                     case 401:
                         next({...rest, res, type: REQUEST_DENIED, message: i18n(action.type, 401)});
+                        next({type: END_LOADING});
                         break;
                     case 404:
                         res.json().then(payload => {
                             next({...rest, payload, type: REQUEST_NOT_FOUND, message: i18n(action.type, 404)});
+                            next({type: END_LOADING});
                         });
                         break;
                     case 409:
                         res.json().then(payload => {
                             next({...rest, payload, type: REQUEST_DUPLICATE, message: i18n(action.type, 409)});
+                            next({type: END_LOADING});
                         });
                         break;
                     case 500:
@@ -65,14 +67,17 @@ export default function promiseMiddleware() {
                                 type: REQUEST_FAILURE,
                                 message: (action.error) ? action.error.toString() : payload.message
                             });
+                            next({type: END_LOADING});
                         });
                         break;
                     default:
                         res.json().then(payload => {
                             if (!type.match('GET')) {
                                 next({...rest, payload, type: REQUEST_SUCCEED, message: i18n(action.type, 200)});
+                                next({type: END_LOADING});
                             }
                             next({...rest, payload, type: SUCCESS});
+                            next({type: END_LOADING});
                         });
                 }
 

@@ -231,8 +231,7 @@ class Role extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    role: state.roles.item,
-    loading: state.app.loading
+    role: state.roles.item
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
