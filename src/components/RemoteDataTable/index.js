@@ -15,7 +15,6 @@ import filterFactory from 'react-bootstrap-table2-filter';
 class RemoteDataTable extends Component {
     static propTypes = {
         columns: PropTypes.array.isRequired,
-        defaultSorted: PropTypes.array.isRequired,
         data: PropTypes.array.isRequired,
         loading: PropTypes.bool.isRequired,
         page: PropTypes.number.isRequired,
@@ -46,7 +45,7 @@ class RemoteDataTable extends Component {
     }
 
     render() {
-        const {data, loading, columns, defaultSorted, page, sizePerPage, totalSize, onTableChange} = this.props;
+        const {data, loading, columns, page, sizePerPage, totalSize, onTableChange} = this.props;
         const selectRow = {
             mode: 'checkbox',
             selected: this.state.selected,
@@ -55,6 +54,10 @@ class RemoteDataTable extends Component {
             hideSelectColumn: true,
             bgColor: '#e8e3ff'
         };
+        const defaultSorted = [{
+            dataField: 'createdAt',
+            order: 'desc'
+        }];
         return (
             <BootstrapTable keyField='_id'
                             data={ data }

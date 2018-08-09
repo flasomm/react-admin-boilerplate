@@ -28,8 +28,10 @@ class Role extends Component {
     static propTypes = {
         role: PropTypes.object,
         location: PropTypes.object,
+        add: PropTypes.func,
         get: PropTypes.func,
-        save: PropTypes.func,
+        update: PropTypes.func,
+        create: PropTypes.func,
         match: PropTypes.object
     };
 
@@ -56,6 +58,8 @@ class Role extends Component {
     componentDidMount() {
         if (this.state.action === 'update') {
             this.props.get(this.props.match.params.id);
+        } else {
+            this.props.add();
         }
     }
 
@@ -98,13 +102,12 @@ class Role extends Component {
      */
     onSubmit(e) {
         e.preventDefault();
-        this.props.save(this.state.role);
+        this.props[this.state.action](this.state.role);
         this.setState({formHasChanged: false});
     }
 
     render() {
         const title = `${this.state.role.role} [${this.state.role.resource}] [${this.state.role.action}]`;
-        console.log('this.state.role.resource', this.state.role.resource);
         return (
             <div>
                 <Breadcrumbs title={title}/>
@@ -138,9 +141,9 @@ class Role extends Component {
                                         <ControlLabel>Resource</ControlLabel>
                                         <span className="required">*</span>
                                         <Select name="resource"
-                                                defaultValue={{
-                                                    value: this.state.role.resource,
-                                                    label: this.state.role.resource
+                                                value={{
+                                                    value: this.state.role.resource || '',
+                                                    label: this.state.role.resource || ''
                                                 }}
                                                 onChange={this.handleChangeSelectResource.bind(this)}
                                                 required={true}
@@ -156,9 +159,9 @@ class Role extends Component {
                                         <span className="required">*</span>
                                         <Select name="action"
                                                 id="role_action"
-                                                defaultValue={{
-                                                    value: this.state.role.action,
-                                                    label: this.state.role.action
+                                                value={{
+                                                    value: this.state.role.action || '',
+                                                    label: this.state.role.action || ''
                                                 }}
                                                 onChange={this.handleChangeSelectAction.bind(this)}
                                                 required={true}
@@ -214,7 +217,7 @@ class Role extends Component {
                                     <ButtonToolbar>
                                         <Button bsStyle="primary"
                                                 disabled={!this.state.formHasChanged}
-                                                onClick={this.onSubmit}>Save
+                                                onClick={this.onSubmit.bind(this)}>Save
                                         </Button>
                                         <LinkContainer exact to="/roles">
                                             <Button>Cancel</Button>
@@ -235,8 +238,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
+    add: () => roles.add(),
     get: (id) => roles.get(id),
-    save: (state) => roles.update(state)
+    update: (state) => roles.update(state),
+    create: (state) => roles.create(state)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Role);

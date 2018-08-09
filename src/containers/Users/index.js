@@ -114,11 +114,6 @@ class Users extends Component {
             formatter: this.displayActions
         }];
 
-        const defaultSorted = [{
-            dataField: 'createdAt',
-            order: 'desc'
-        }];
-
         return (
             <div>
                 <Breadcrumbs />
@@ -136,7 +131,6 @@ class Users extends Component {
                                 <RemoteDataTable data={ this.props.users }
                                                  loading={ this.state.loading }
                                                  columns={ columns }
-                                                 defaultSorted={ defaultSorted }
                                                  page={ this.state.page }
                                                  sizePerPage={ this.state.sizePerPage }
                                                  totalSize={ this.props.total }

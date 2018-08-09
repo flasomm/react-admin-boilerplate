@@ -22,7 +22,6 @@ class Loading extends Component {
      * @returns {XML}
      */
     render() {
-        console.log('state.app.loading', this.props.loading);
         return (
             <div>
                 {this.props.loading ?

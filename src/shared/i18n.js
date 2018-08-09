@@ -23,6 +23,14 @@ const messages = {
     UPDATE_USER: {
         200: 'User updated with success',
         404: 'User not found'
+    },
+    UPDATE_ROLE: {
+        200: 'Role updated with success',
+        404: 'Role not found'
+    },
+    CREATE_ROLE: {
+        200: 'Role created with success',
+        404: 'Role not found'
     }
 };
 

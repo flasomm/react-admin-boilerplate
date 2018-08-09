@@ -81,6 +81,7 @@ export default function request() {
                         });
                 }
 
+                next({type: END_LOADING});
                 return res;
                 /* simple chaining mechanism, at least return something from our promise */
             })
