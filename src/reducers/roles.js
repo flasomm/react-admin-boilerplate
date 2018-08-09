@@ -10,6 +10,7 @@ import {
     GET_ROLE,
     UPDATE_ROLE,
     CREATE_ROLE,
+    DELETE_ROLE,
     GET_ALL_ROLES
 } from 'shared/actions';
 
@@ -43,6 +44,9 @@ export default function roles(state = INITIAL_STATE, action) {
 
         case NEW_ROLE:
             return {...state, item: {_id: undefined, role: '', resource: '', action: '', attributes: '*'}};
+
+        case DELETE_ROLE:
+            return {...state, item: action.payload};
 
         default:
             return state;

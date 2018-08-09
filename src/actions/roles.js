@@ -10,6 +10,7 @@ import {
     GET_ROLE,
     UPDATE_ROLE,
     CREATE_ROLE,
+    DELETE_ROLE,
     GET_ALL_ROLES
 } from 'shared/actions';
 
@@ -61,6 +62,19 @@ export const update = (role) => ({
 export const create = (role) => ({
     type: CREATE_ROLE,
     promise: fetch(`${config.api.url}/roles`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
+        },
+        body: JSON.stringify(role)
+    })
+});
+
+export const remove = (role) => ({
+    type: DELETE_ROLE,
+    promise: fetch(`${config.api.url}/roles/${role[0]}`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',

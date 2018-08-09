@@ -64,7 +64,7 @@ class RemoteDataTable extends Component {
                             loading={ loading }
                             columns={ columns }
                             defaultSorted={ defaultSorted }
-                            remote={{ pagination: true }}
+                            remote
                             filter={ filterFactory() }
                             pagination={ paginationFactory({page, sizePerPage, totalSize }) }
                             onTableChange={ onTableChange }

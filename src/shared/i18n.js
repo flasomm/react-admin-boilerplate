@@ -31,6 +31,10 @@ const messages = {
     CREATE_ROLE: {
         200: 'Role created with success',
         404: 'Role not found'
+    },
+    DELETE_ROLE: {
+        200: 'Role deleted with success',
+        404: 'Role not found'
     }
 };
 

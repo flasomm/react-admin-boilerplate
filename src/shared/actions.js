@@ -34,3 +34,4 @@ export const GET_ALL_ROLES = 'GET_ALL_ROLES';
 export const GET_ROLE = 'GET_ROLE';
 export const UPDATE_ROLE = 'UPDATE_ROLE';
 export const CREATE_ROLE = 'CREATE_ROLE';
+export const DELETE_ROLE = 'DELETE_ROLE';

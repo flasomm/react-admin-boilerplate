@@ -61,13 +61,33 @@ class Roles extends Component {
         );
     }
 
-    onTableChange(type, {page = 1, sizePerPage = 10}) {
+    onTableChange(type, {sortField, sortOrder, page = 1, sizePerPage = 10}) {
         const currentIndex = (page - 1) * sizePerPage;
         this.props.getAll(currentIndex, sizePerPage);
         setTimeout(() => {
+            let result = this.props.roles;
+            if (sortOrder === 'asc') {
+                result = result.sort((a, b) => {
+                    if (a[sortField] > b[sortField]) {
+                        return 1;
+                    } else if (b[sortField] > a[sortField]) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            } else {
+                result = result.sort((a, b) => {
+                    if (a[sortField] > b[sortField]) {
+                        return -1;
+                    } else if (b[sortField] > a[sortField]) {
+                        return 1;
+                    }
+                    return 0;
+                });
+            }
             this.setState(() => ({
                 page,
-                roles: this.props.roles,
+                roles: result,
                 totalSize: this.props.total,
                 sizePerPage,
                 loading: false,
@@ -80,6 +100,7 @@ class Roles extends Component {
     onSelectDelete() {
         if (this.state.selected) {
             console.log('this.state.selected', this.state.selected);
+            this.props.delete(this.state.selected);
         }
     }
 
@@ -170,7 +191,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    getAll: (skip, limit) => roles.getAll(skip, limit)
+    getAll: (skip, limit) => roles.getAll(skip, limit),
+    delete: (role) => roles.remove(role)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Roles);
