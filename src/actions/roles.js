@@ -75,7 +75,7 @@ export const create = (role) => ({
 export const remove = (role) => ({
     type: DELETE_ROLE,
     promise: fetch(`${config.api.url}/roles/${role[0]}`, {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',

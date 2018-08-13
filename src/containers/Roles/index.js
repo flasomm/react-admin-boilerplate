@@ -25,7 +25,8 @@ class Roles extends Component {
     static propTypes = {
         roles: PropTypes.array,
         total: PropTypes.number,
-        getAll: PropTypes.func
+        getAll: PropTypes.func,
+        delete: PropTypes.func
     };
 
     /**
@@ -99,7 +100,6 @@ class Roles extends Component {
 
     onSelectDelete() {
         if (this.state.selected) {
-            console.log('this.state.selected', this.state.selected);
             this.props.delete(this.state.selected);
         }
     }

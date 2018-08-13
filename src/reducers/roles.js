@@ -46,7 +46,9 @@ export default function roles(state = INITIAL_STATE, action) {
             return {...state, item: {_id: undefined, role: '', resource: '', action: '', attributes: '*'}};
 
         case DELETE_ROLE:
-            return {...state, item: action.payload};
+            const newState = {...state};
+            newState.items = state.items.filter(role => !action.payload.includes(role._id));
+            return {...newState};
 
         default:
             return state;
