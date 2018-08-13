@@ -8,6 +8,8 @@
 import {
     GET_USER,
     UPDATE_USER,
+    CREATE_USER,
+    DELETE_USER,
     GET_ALL_USERS
 } from 'shared/actions';
 
@@ -49,5 +51,31 @@ export const update = (user) => ({
             Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
         },
         body: JSON.stringify(user)
+    })
+});
+
+export const create = (user) => ({
+    type: CREATE_USER,
+    promise: fetch(`${config.api.url}/users`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
+        },
+        body: JSON.stringify(user)
+    })
+});
+
+export const remove = (users) => ({
+    type: DELETE_USER,
+    promise: fetch(`${config.api.url}/users/${users[0]}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
+        },
+        body: JSON.stringify(users)
     })
 });

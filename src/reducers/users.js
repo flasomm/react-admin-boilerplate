@@ -8,6 +8,9 @@
 import {
     GET_USER,
     UPDATE_USER,
+    CREATE_USER,
+    DELETE_USER,
+    NEW_USER,
     GET_ALL_USERS
 } from 'shared/actions';
 
@@ -35,6 +38,17 @@ export default function users(state = INITIAL_STATE, action) {
 
         case UPDATE_USER:
             return {...state, item: action.payload};
+
+        case CREATE_USER:
+            return {...state, item: action.payload};
+
+        case NEW_USER:
+            return {...state, item: {_id: undefined, email: '', role: '', firstname: '', lastname: ''}};
+
+        case DELETE_USER:
+            const newState = {...state};
+            newState.items = state.items.filter(user => !action.payload.includes(user._id));
+            return {...newState};
 
         default:
             return state;
