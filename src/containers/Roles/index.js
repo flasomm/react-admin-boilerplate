@@ -62,7 +62,7 @@ class Roles extends Component {
         );
     }
 
-    onTableChange(type, {sortField, sortOrder, page = 1, sizePerPage = 10}) {
+    onTableChange(type, {page = 1, sizePerPage = 10, sortField, sortOrder}) {
         const currentIndex = (page - 1) * sizePerPage;
         this.props.getAll(currentIndex, sizePerPage);
         setTimeout(() => {

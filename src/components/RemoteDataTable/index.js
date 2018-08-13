@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory from 'react-bootstrap-table2-filter';
-
+import ToolkitProvider, {Search} from 'react-bootstrap-table2-toolkit';
 
 class RemoteDataTable extends Component {
     static propTypes = {
@@ -45,6 +45,7 @@ class RemoteDataTable extends Component {
     }
 
     render() {
+        const {SearchBar} = Search;
         const {data, loading, columns, page, sizePerPage, totalSize, onTableChange} = this.props;
         const selectRow = {
             mode: 'checkbox',
@@ -58,21 +59,33 @@ class RemoteDataTable extends Component {
             dataField: 'createdAt',
             order: 'desc'
         }];
+
         return (
-            <BootstrapTable keyField='_id'
-                            data={ data }
+            <ToolkitProvider
+                keyField="_id"
+                data={ data }
+                columns={ columns }
+                search
+            >
+                {
+                    toolkitprops => [
+                        <SearchBar key='search' { ...toolkitprops.searchProps } />,
+                        <BootstrapTable { ...toolkitprops.baseProps }
+                            key='search-table'
                             loading={ loading }
-                            columns={ columns }
                             defaultSorted={ defaultSorted }
                             remote
                             filter={ filterFactory() }
-                            pagination={ paginationFactory({page, sizePerPage, totalSize }) }
+                            pagination={ paginationFactory({page, sizePerPage, totalSize}) }
                             onTableChange={ onTableChange }
                             selectRow={ selectRow }
                             bordered={ false }
                             striped
                             hover
-            />
+                        />
+                    ]
+                }
+            </ToolkitProvider>
         );
     }
 }
