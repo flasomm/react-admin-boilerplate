@@ -9,11 +9,16 @@ import {
     GET_USER,
     UPDATE_USER,
     CREATE_USER,
+    NEW_USER,
     DELETE_USER,
     GET_ALL_USERS
 } from 'shared/actions';
 
 const config = require('config');
+
+export const add = () => ({
+    type: NEW_USER
+});
 
 export const getAll = (skip, limit) => ({
     type: GET_ALL_USERS,

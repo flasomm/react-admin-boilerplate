@@ -59,6 +59,17 @@ class Profile extends Component {
     }
 
     /**
+     * Handle change on role select field form.
+     * @param selected
+     */
+    handleChangeSelectRole(selected) {
+        const state = {...this.state};
+        state['profile']['role'] = selected.value;
+        state['formHasChanged'] = true;
+        this.setState(state);
+    }
+
+    /**
      * Handle change on submit form.
      * @param e
      */
@@ -86,6 +97,7 @@ class Profile extends Component {
                             <Panel.Body>
                                 <UserForm user={this.state.profile}
                                           handleChange={this.handleChange.bind(this)}
+                                          handleChangeSelectRole={this.handleChangeSelectRole.bind(this)}
                                           formHasChanged={this.state.formHasChanged}
                                           onSubmit={this.onSubmit.bind(this)}/>
                             </Panel.Body>
