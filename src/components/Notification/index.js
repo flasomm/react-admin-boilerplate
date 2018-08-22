@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {ToastContainer} from 'react-toastr';
+import {ToastContainer, ToastMessageAnimated} from 'react-toastr';
 
 export default class Notification extends Component {
     /**
@@ -16,13 +16,7 @@ export default class Notification extends Component {
     popUp(options) {
         const status = options.status || 'info';
         if (this.container[status]) {
-            this.container[status](
-                options.message || '',
-                options.title || '',
-                {
-                    timeOut: 5000,
-                    extendedTimeOut: 10000
-                });
+            this.container[status](options.message || '', options.title || '');
         }
     }
 
@@ -33,7 +27,9 @@ export default class Notification extends Component {
     render() {
         return (
             <div>
-                <ToastContainer ref={ref => { this.container = ref; }} className="toast-top-right" />
+                <ToastContainer ref={ref => { this.container = ref; }}
+                                toastMessageFactory={React.createFactory(ToastMessageAnimated)}
+                                className="toast-top-right"/>
             </div>
         );
     }

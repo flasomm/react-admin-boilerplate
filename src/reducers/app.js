@@ -17,7 +17,7 @@ import {
 } from 'shared/actions';
 
 function notify(type, message) {
-    if (type && message) {
+    if (!type || !message) {
         return '';
     }
     return {
@@ -39,19 +39,19 @@ export default function app(state = INITIAL_STATE, action) {
             return {...action.state, auth: {isAuthenticated: false, user: {}}};
 
         case REQUEST_NOT_FOUND:
-            return {toasterMsg: notify('info', action.message)};
+            return {...state, notification: notify('info', action.message)};
 
         case REQUEST_DUPLICATE:
-            return {toasterMsg: notify('info', action.message)};
+            return {...state, notification: notify('info', action.message)};
 
         case REQUEST_WARNING:
-            return {toasterMsg: notify('warning', action.message)};
+            return {...state, notification: notify('warning', action.message)};
 
         case REQUEST_FAILURE:
-            return {toasterMsg: notify('error', action.message)};
+            return {...state, notification: notify('error', action.message)};
 
         case REQUEST_SUCCEED:
-            return {toasterMsg: notify('success', action.message)};
+            return {...state, notification: notify('success', action.message)};
 
         case LOADING:
             return {loading: true};
