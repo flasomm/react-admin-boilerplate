@@ -16,7 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
 import 'font-awesome/css/font-awesome.min.css';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import 'react-toastr/src/components/demo.css';
+import 'assets/css/notification.css';
 import 'assets/css/animate.css';
 import 'assets/css/styles.css';
 import {App} from 'containers/index';

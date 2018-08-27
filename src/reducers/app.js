@@ -29,7 +29,7 @@ function notify(type, message) {
 }
 
 const INITIAL_STATE = {
-    toasterMsg: null,
+    notification: null,
     loading: false
 };
 
