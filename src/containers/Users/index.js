@@ -62,13 +62,33 @@ class Users extends Component {
         );
     }
 
-    onTableChange(type, {page = 1, sizePerPage = 10}) {
+    onTableChange(type, {page = 1, sizePerPage = 10, sortField, sortOrder, searchText}) {
         const currentIndex = (page - 1) * sizePerPage;
-        this.props.getAll(currentIndex, sizePerPage);
+        this.props.getAll(currentIndex, sizePerPage, sortField, sortOrder, searchText);
         setTimeout(() => {
+            let result = this.props.users;
+            if (sortOrder === 'asc') {
+                result = result.sort((a, b) => {
+                    if (a[sortField] > b[sortField]) {
+                        return 1;
+                    } else if (b[sortField] > a[sortField]) {
+                        return -1;
+                    }
+                    return 0;
+                });
+            } else {
+                result = result.sort((a, b) => {
+                    if (a[sortField] > b[sortField]) {
+                        return -1;
+                    } else if (b[sortField] > a[sortField]) {
+                        return 1;
+                    }
+                    return 0;
+                });
+            }
             this.setState(() => ({
                 page,
-                users: this.props.users,
+                users: result,
                 totalSize: this.props.total,
                 sizePerPage,
                 loading: false,
@@ -171,7 +191,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    getAll: (skip, limit) => users.getAll(skip, limit),
+    getAll: (skip, limit, sortField, sortOrder, searchText) => users.getAll(skip, limit, sortField, sortOrder, searchText),
     delete: (user) => users.remove(user)
 }, dispatch);
 

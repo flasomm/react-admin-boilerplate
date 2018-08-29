@@ -20,18 +20,21 @@ export const add = () => ({
     type: NEW_ROLE
 });
 
-export const getAll = (skip, limit) => ({
-    type: GET_ALL_ROLES,
-    promise: fetch(`${config.api.url}/roles?skip=${skip}&limit=${limit}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
-        },
-        mode: 'cors',
-        cache: 'default'
-    })
-});
+export const getAll = (skip, limit, sortField, sortOrder, searchText) => {
+    const url = `${config.api.url}/roles?skip=${skip}&limit=${limit}&sortField=${sortField}&sortOrder=${sortOrder}&q=${searchText}`;
+    return {
+        type: GET_ALL_ROLES,
+        promise: fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
+            },
+            mode: 'cors',
+            cache: 'default'
+        })
+    };
+};
 
 export const get = (roleId) => ({
     type: GET_ROLE,

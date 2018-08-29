@@ -69,7 +69,7 @@ class RemoteDataTable extends Component {
             >
                 {
                     toolkitprops => [
-                        <SearchBar key='search' { ...toolkitprops.searchProps } />,
+                        <SearchBar key='search' { ...toolkitprops.searchProps }/>,
                         <BootstrapTable { ...toolkitprops.baseProps }
                             key='search-table'
                             loading={ loading }

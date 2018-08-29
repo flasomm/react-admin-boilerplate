@@ -62,9 +62,9 @@ class Roles extends Component {
         );
     }
 
-    onTableChange(type, {page = 1, sizePerPage = 10, sortField, sortOrder}) {
+    onTableChange(type, {page = 1, sizePerPage = 10, sortField, sortOrder, searchText}) {
         const currentIndex = (page - 1) * sizePerPage;
-        this.props.getAll(currentIndex, sizePerPage);
+        this.props.getAll(currentIndex, sizePerPage, sortField, sortOrder, searchText);
         setTimeout(() => {
             let result = this.props.roles;
             if (sortOrder === 'asc') {
@@ -94,7 +94,7 @@ class Roles extends Component {
                 loading: false,
                 type: type
             }));
-        }, 100);
+        }, 300);
         this.setState(() => ({loading: true}));
     }
 
@@ -191,7 +191,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-    getAll: (skip, limit) => roles.getAll(skip, limit),
+    getAll: (skip, limit, sortField, sortOrder, searchText) => roles.getAll(skip, limit, sortField, sortOrder, searchText),
     delete: (role) => roles.remove(role)
 }, dispatch);
 

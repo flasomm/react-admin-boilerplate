@@ -20,18 +20,21 @@ export const add = () => ({
     type: NEW_USER
 });
 
-export const getAll = (skip, limit) => ({
-    type: GET_ALL_USERS,
-    promise: fetch(`${config.api.url}/users?skip=${skip}&limit=${limit}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
-        },
-        mode: 'cors',
-        cache: 'default'
-    })
-});
+export const getAll = (skip, limit, sortField, sortOrder, searchText) => {
+    const url = `${config.api.url}/users?skip=${skip}&limit=${limit}&sortField=${sortField}&sortOrder=${sortOrder}&q=${searchText}`;
+    return {
+        type: GET_ALL_USERS,
+        promise: fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
+            },
+            mode: 'cors',
+            cache: 'default'
+        })
+    };
+};
 
 export const get = (userId) => ({
     type: GET_USER,
