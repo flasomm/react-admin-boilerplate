@@ -6,7 +6,7 @@
  */
 
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
@@ -19,7 +19,8 @@ import styles from './styles.css';
 class Menu extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-        isLoggedIn: PropTypes.func.isRequired
+        isLoggedIn: PropTypes.func.isRequired,
+        pathname: PropTypes.string.isRequired
     };
 
     static defaultProps = {
@@ -39,35 +40,56 @@ class Menu extends Component {
         if (!this.props.isAuthenticated) {
             return null;
         }
+        console.log(this.props.pathname);
         return (
             <div className={`navbar-collapse collapse ${styles.sidebar}`} id="sidebar">
                 <nav>
                     <ul className={styles.navigation}>
                         <li>
-                            <Link to="/dashboard">
+                            <NavLink to="/dashboard"
+                                     activeClassName="selected"
+                                     exact
+                                     strict
+                                     activeStyle={{
+                                        fontWeight: 'bold',
+                                        backgroundColor: '#fff'
+                                    }}>
                                 <i className="fa fa-tachometer fa-fw"></i>
                                 <span>&nbsp;Dashboard</span>
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/users">
+                            <NavLink to="/users"
+                                     activeClassName="selected"
+                                     exact
+                                     strict
+                                     activeStyle={{
+                                        fontWeight: 'bold',
+                                        backgroundColor: '#fff'
+                                    }}>
                                 <i className="fa fa-users fa-fw"></i>
                                 <span>&nbsp;Users</span>
-                            </Link>
+                            </NavLink>
                         </li>
-                        <li className={styles['has-children']}>
+                        <li>
                             <input type="checkbox" name="group-1" id="group-1"/>
                             <label htmlFor="group-1">
                                 <i className="fa fa-cog fa-fw"></i>
                                 <span>&nbsp;System</span>
-                                <span className={styles['caret-open']}></span>
                             </label>
                             <ul>
                                 <li>
-                                    <Link to="/roles">
+                                    <NavLink to="/roles"
+                                             activeClassName="selected"
+                                             exact
+                                             strict
+                                             activeStyle={{
+                                                fontWeight: 'bold',
+                                                backgroundColor: '#fff'
+                                            }}>
                                         <i className="fa fa-user-circle fa-fw"></i>
                                         <span>&nbsp;Roles</span>
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </li>
@@ -78,7 +100,8 @@ class Menu extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    pathname: state.routing.location.pathname
 });
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
