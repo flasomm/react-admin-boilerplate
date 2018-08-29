@@ -9,11 +9,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import PropTypes from 'prop-types';
-import {Grid, Col, Row} from 'react-bootstrap';
+import {Grid, Col, Row, Panel} from 'react-bootstrap';
 import {Can} from '@casl/react';
 import Helmet from 'react-helmet';
-import {auth, users} from 'actions/index';
+import {users, roles} from 'actions/index';
 import {Breadcrumbs} from 'components/index';
+import styles from './styles.css';
 
 const config = require('config');
 
@@ -24,16 +25,17 @@ class Dashboard extends Component {
     static propTypes = {
         ability: PropTypes.object,
         authUser: PropTypes.object,
-        user: PropTypes.object,
-        usersActions: PropTypes.object
+        totalUsers: PropTypes.number,
+        totalRoles: PropTypes.number,
+        getAllUsers: PropTypes.func,
+        getAllRoles: PropTypes.func,
+        get: PropTypes.func
     };
 
-    createUser() {
-        console.log('test create');
-    }
-
     componentDidMount() {
-        this.props.usersActions.get(this.props.authUser.id);
+        this.props.get(this.props.authUser.id);
+        this.props.getAllUsers(0, 1);
+        this.props.getAllRoles(0, 1);
     }
 
     /**
@@ -45,15 +47,27 @@ class Dashboard extends Component {
             <div>
                 <Breadcrumbs />
                 <Grid fluid>
-                    <Row>
-                        <Col lg={4} md={8}>
-                            <Helmet title={`Dashboard - ${config.app.title}`}/>
-                            <div>Dashboard</div>
-                            <Can I="create" a="User" ability={this.props.ability}>
-                                <button onClick={this.createUser.bind(this)}>Create User</button>
-                            </Can>
-                        </Col>
-                    </Row>
+                    <Helmet title={`Dashboard - ${config.app.title}`}/>
+                    <Can I="create" a="User" ability={this.props.ability}>
+                        <Row className="show-grid">
+                            <Col lg={3} md={3}>
+                                <Panel>
+                                    <Panel.Body>
+                                        <h1 className={styles['card-h1']}>{this.props.totalUsers}</h1>
+                                        <div className={styles['card-content']}>New Users</div>
+                                    </Panel.Body>
+                                </Panel>
+                            </Col>
+                            <Col lg={3} md={3}>
+                                <Panel>
+                                    <Panel.Body>
+                                        <h1 className={styles['card-h1']}>{this.props.totalRoles}</h1>
+                                        <div className={styles['card-content']}>New Roles</div>
+                                    </Panel.Body>
+                                </Panel>
+                            </Col>
+                        </Row>
+                    </Can>
                 </Grid>
             </div>
         );
@@ -63,13 +77,14 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => ({
     ability: state.auth.ability,
     authUser: state.auth.user,
-    user: state.users.item
-
+    totalUsers: state.users.total,
+    totalRoles: state.roles.total
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    usersActions: bindActionCreators(users, dispatch),
-    authActions: bindActionCreators(auth, dispatch)
-});
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    getAllUsers: (skip, limit, sortField, sortOrder, searchText) => users.getAll(skip, limit, sortField, sortOrder, searchText),
+    getAllRoles: (skip, limit, sortField, sortOrder, searchText) => roles.getAll(skip, limit, sortField, sortOrder, searchText),
+    get: (id) => users.get(id)
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
