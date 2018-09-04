@@ -40,7 +40,6 @@ class Menu extends Component {
         if (!this.props.isAuthenticated) {
             return null;
         }
-        console.log(this.props.pathname);
         return (
             <div className={`navbar-collapse collapse ${styles.sidebar}`} id="sidebar">
                 <nav>
