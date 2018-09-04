@@ -22,8 +22,8 @@ const config = require('config');
 class Login extends Component {
     static propTypes = {
         auth: PropTypes.object,
-        authActions: PropTypes.object,
         history: PropTypes.object,
+        login: PropTypes.func,
         dispatch: PropTypes.func
     };
 
@@ -42,8 +42,6 @@ class Login extends Component {
             email: '',
             password: ''
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
     /**
@@ -62,7 +60,7 @@ class Login extends Component {
      */
     onSubmit(e) {
         e.preventDefault();
-        this.props.authActions.login(this.state.email, this.state.password);
+        this.props.login(this.state.email, this.state.password);
     }
 
     displayMessage() {
@@ -89,7 +87,7 @@ class Login extends Component {
                             <div className={`${styles['login-form']}`}>
                                 <Helmet title={`Sign In - ${config.app.title}`}/>
                                 <h4>Login</h4>
-                                <Form horizontal onSubmit={this.onSubmit}>
+                                <Form horizontal onSubmit={this.onSubmit.bind(this)}>
                                     <FormGroup>
                                         <Col sm={12}>
                                             <ControlLabel>Email address</ControlLabel>
@@ -98,7 +96,7 @@ class Login extends Component {
                                                 name="email"
                                                 placeholder="Email"
                                                 value={this.state.email || ''}
-                                                onChange={this.handleChange}
+                                                onChange={this.handleChange.bind(this)}
                                             />
                                         </Col>
                                     </FormGroup>
@@ -110,7 +108,7 @@ class Login extends Component {
                                                 name="password"
                                                 placeholder="Password"
                                                 value={this.state.password || ''}
-                                                onChange={this.handleChange}
+                                                onChange={this.handleChange.bind(this)}
                                             />
                                         </Col>
                                     </FormGroup>
@@ -127,12 +125,12 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    ...state
+    auth: state.auth
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    authActions: bindActionCreators(auth, dispatch),
-    dispatch: dispatch
-});
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+    login: (email, password) => auth.login(email, password),
+    dispatch: () => dispatch
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
