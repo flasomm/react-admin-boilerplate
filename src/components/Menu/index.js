@@ -61,7 +61,6 @@ class Menu extends Component {
                         <li>
                             <NavLink to="/users"
                                      activeClassName="selected"
-                                     exact
                                      strict
                                      activeStyle={{
                                         fontWeight: 'bold',
@@ -81,7 +80,6 @@ class Menu extends Component {
                                 <li>
                                     <NavLink to="/roles"
                                              activeClassName="selected"
-                                             exact
                                              strict
                                              activeStyle={{
                                                 fontWeight: 'bold',
