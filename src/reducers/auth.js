@@ -6,7 +6,6 @@
  */
 
 import i18n from 'shared/i18n';
-import {AbilityBuilder, Ability} from '@casl/ability';
 import {
     IS_LOGIN,
     IS_LOGOUT,
@@ -16,25 +15,9 @@ import {
     LOGOUT
 } from 'shared/actions';
 
-/**
- * Define casl abilities for user's role authenticated.
- * @param user
- * @returns {*}
- */
-const defineAbilitiesFor = (user) => {
-    const {rules, can} = AbilityBuilder.extract();
-
-    if (user.role === 'admin') {
-        can('manage', 'all');
-    } else {
-        can('read', 'all');
-    }
-    return new Ability(rules);
-};
-
 const INITIAL_STATE = {
     user: {},
-    ability: {},
+    roles: [],
     isAuthenticated: null,
     isError: false,
     message: ''
@@ -49,10 +32,10 @@ const INITIAL_STATE = {
 export default function auth(state = INITIAL_STATE, action) {
     switch (action.type) {
         case IS_LOGIN:
-            return {...state, isAuthenticated: true, user: action.payload, ability: defineAbilitiesFor(action.payload)};
+            return {...state, isAuthenticated: true, user: action.payload, roles: action.payload};
 
         case IS_LOGOUT:
-            return {...state, isAuthenticated: false, user: {}, ability: {}};
+            return {...state, isAuthenticated: false, user: {}, roles: []};
 
         case LOGIN:
             return {...state, isAuthenticated: false, isError: false};
@@ -63,7 +46,7 @@ export default function auth(state = INITIAL_STATE, action) {
                 isAuthenticated: true,
                 isError: false,
                 user: action.payload,
-                ability: defineAbilitiesFor(action.payload),
+                roles: action.payload,
                 message: i18n(action.type, action.status)
             };
 
@@ -72,7 +55,7 @@ export default function auth(state = INITIAL_STATE, action) {
                 ...state,
                 isAuthenticated: false,
                 user: {},
-                ability: {},
+                roles: [],
                 isError: true,
                 message: i18n(action.type, action.status)
             };

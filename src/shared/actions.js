@@ -35,6 +35,7 @@ export const DELETE_USER = 'DELETE_USER';
 export const NEW_ROLE = 'NEW_ROLE';
 export const GET_ALL_ROLES = 'GET_ALL_ROLES';
 export const GET_ROLE = 'GET_ROLE';
+export const GET_ROLES_BY_NAME = 'GET_ROLES_BY_NAME';
 export const UPDATE_ROLE = 'UPDATE_ROLE';
 export const CREATE_ROLE = 'CREATE_ROLE';
 export const DELETE_ROLE = 'DELETE_ROLE';

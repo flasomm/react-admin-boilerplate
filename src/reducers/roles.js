@@ -11,7 +11,8 @@ import {
     UPDATE_ROLE,
     CREATE_ROLE,
     DELETE_ROLE,
-    GET_ALL_ROLES
+    GET_ALL_ROLES,
+    GET_ROLES_BY_NAME
 } from 'shared/actions';
 
 const INITIAL_STATE = {
@@ -35,6 +36,9 @@ export default function roles(state = INITIAL_STATE, action) {
 
         case GET_ROLE:
             return {...state, item: action.payload};
+
+        case GET_ROLES_BY_NAME:
+            return {...state, items: action.payload};
 
         case UPDATE_ROLE:
             return {...state, item: action.payload};
