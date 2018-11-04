@@ -44,7 +44,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.props.get(this.props.authUser.id);
+        this.props.get(this.props.authUser._id);
     }
 
     /**

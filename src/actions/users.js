@@ -36,7 +36,7 @@ export const getAll = (skip, limit, sortField, sortOrder, searchText) => {
     };
 };
 
-export const get = (userId) => ({
+export const get = userId => ({
     type: GET_USER,
     promise: fetch(`${config.api.url}/users/${userId}`, {
         method: 'GET',
@@ -49,7 +49,7 @@ export const get = (userId) => ({
     })
 });
 
-export const update = (user) => ({
+export const update = user => ({
     type: UPDATE_USER,
     promise: fetch(`${config.api.url}/users/${user._id}`, {
         method: 'PUT',
@@ -62,7 +62,7 @@ export const update = (user) => ({
     })
 });
 
-export const create = (user) => ({
+export const create = user => ({
     type: CREATE_USER,
     promise: fetch(`${config.api.url}/users`, {
         method: 'POST',
@@ -75,7 +75,7 @@ export const create = (user) => ({
     })
 });
 
-export const remove = (users) => ({
+export const remove = users => ({
     type: DELETE_USER,
     promise: fetch(`${config.api.url}/users/${users[0]}`, {
         method: 'DELETE',

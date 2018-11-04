@@ -26,9 +26,8 @@ const tokenHasExpired = token => {
 const decodeToken = token => {
     const decodedToken = jwt.decode(token);
     return {
-        id: decodedToken['_id'],
-        email: decodedToken.email,
-        role: decodedToken.role
+        user: decodedToken.user,
+        roles: decodedToken.roles
     };
 };
 
@@ -88,8 +87,8 @@ export const login = (email, password) => dispatch => new Promise(resolve => {
             }
             response.json().then(value => {
                 sessionStorage.setItem('jwt', value.token);
-                const user = decodeToken(value.token);
-                dispatch(loginSuccess(user));
+                const token = decodeToken(value.token);
+                dispatch(loginSuccess(token));
                 resolve(value);
             });
         });
@@ -102,4 +101,3 @@ export const logout = () => {
         status: 200
     };
 };
-
