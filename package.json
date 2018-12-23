@@ -4,7 +4,7 @@
   "description": "React starter kit with webpack v4, react router v4, code splitting and more",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config ./config/webpack.config.js",
+    "start": "export NODE_ENV=dev; webpack-dev-server --config ./config/webpack.config.js",
     "build": "webpack --mode production --progress --config ./config/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
