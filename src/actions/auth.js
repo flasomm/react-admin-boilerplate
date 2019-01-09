@@ -17,13 +17,13 @@ import {
 
 const config = require('config');
 
-const tokenHasExpired = (token) => {
+const tokenHasExpired = token => {
     const decodedToken = jwt.decode(token);
     const currentTime = new Date().getTime() / 1000;
     return currentTime > decodedToken.exp;
 };
 
-const decodeToken = (token) => {
+const decodeToken = token => {
     const decodedToken = jwt.decode(token);
     return {
         id: decodedToken['_id'],
@@ -32,13 +32,13 @@ const decodeToken = (token) => {
     };
 };
 
-const loginSuccess = (user) => ({
+const loginSuccess = user => ({
     type: LOGIN_SUCCESS,
     payload: user,
     status: 200
 });
 
-const loginFailure = (status) => ({
+const loginFailure = status => ({
     type: LOGIN_FAILURE,
     status: status
 });
@@ -47,7 +47,7 @@ const loginRequest = () => ({
     type: LOGIN
 });
 
-const isLoggedInSuccess = (user) => ({
+const isLoggedInSuccess = user => ({
     type: IS_LOGIN,
     payload: user
 });
@@ -56,7 +56,7 @@ const isLoggedInFailure = () => ({
     type: IS_LOGOUT
 });
 
-export const isLoggedIn = () => (dispatch) => {
+export const isLoggedIn = () => dispatch => {
     const token = sessionStorage.getItem('jwt');
     if (token && !tokenHasExpired(token)) {
         dispatch(isLoggedInSuccess(decodeToken(token)));

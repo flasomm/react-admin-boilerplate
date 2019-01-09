@@ -17,7 +17,6 @@ import {
 
 const INITIAL_STATE = {
     user: {},
-    roles: [],
     isAuthenticated: null,
     isError: false,
     message: ''
@@ -32,10 +31,10 @@ const INITIAL_STATE = {
 export default function auth(state = INITIAL_STATE, action) {
     switch (action.type) {
         case IS_LOGIN:
-            return {...state, isAuthenticated: true, user: action.payload, roles: action.payload};
+            return {...state, isAuthenticated: true, user: action.payload};
 
         case IS_LOGOUT:
-            return {...state, isAuthenticated: false, user: {}, roles: []};
+            return {...state, isAuthenticated: false, user: {}};
 
         case LOGIN:
             return {...state, isAuthenticated: false, isError: false};
@@ -46,7 +45,6 @@ export default function auth(state = INITIAL_STATE, action) {
                 isAuthenticated: true,
                 isError: false,
                 user: action.payload,
-                roles: action.payload,
                 message: i18n(action.type, action.status)
             };
 
@@ -55,7 +53,6 @@ export default function auth(state = INITIAL_STATE, action) {
                 ...state,
                 isAuthenticated: false,
                 user: {},
-                roles: [],
                 isError: true,
                 message: i18n(action.type, action.status)
             };

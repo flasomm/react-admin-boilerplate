@@ -6,7 +6,7 @@
  */
 
 export Breadcrumbs from './Breadcrumbs/index';
-export Can from './Can/index';
+export Admin from './Admin/index';
 export Footer from './Footer/index';
 export Header from './Header/index';
 export Loading from './Loading/index';

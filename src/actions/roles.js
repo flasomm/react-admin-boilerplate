@@ -11,8 +11,7 @@ import {
     UPDATE_ROLE,
     CREATE_ROLE,
     DELETE_ROLE,
-    GET_ALL_ROLES,
-    GET_ROLES_BY_NAME
+    GET_ALL_ROLES
 } from 'shared/actions';
 
 const config = require('config');
@@ -40,19 +39,6 @@ export const getAll = (skip, limit, sortField, sortOrder, searchText) => {
 export const get = (roleId) => ({
     type: GET_ROLE,
     promise: fetch(`${config.api.url}/roles/${roleId}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${sessionStorage.getItem('jwt')}`
-        },
-        mode: 'cors',
-        cache: 'default'
-    })
-});
-
-export const getRolesByName = (name) => ({
-    type: GET_ROLES_BY_NAME,
-    promise: fetch(`${config.api.url}/roles/name/${name}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
