@@ -96,12 +96,12 @@ class Menu extends Component {
         );
     }
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     pathname: state.routing.location.pathname
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     isLoggedIn: () => auth.isLoggedIn()
 }, dispatch);
 

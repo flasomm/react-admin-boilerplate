@@ -109,14 +109,14 @@ class Profile extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     authUser: state.auth.user,
     user: state.users.item
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-    get: (id) => users.get(id),
-    save: (state) => users.update(state)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    get: id => users.get(id),
+    save: state => users.update(state)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -70,16 +70,16 @@ class App extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     ...state,
     isAuthenticated: state.auth.isAuthenticated,
     abilities: state.auth.roles,
     authUser: state.auth.user
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     isLoggedIn: () => auth.isLoggedIn(),
-    get: (id) => users.get(id)
+    get: id => users.get(id)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

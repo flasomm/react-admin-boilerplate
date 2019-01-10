@@ -53,7 +53,7 @@ class Notification extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     app: state.app
 });
 

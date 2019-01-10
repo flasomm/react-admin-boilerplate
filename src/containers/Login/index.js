@@ -124,11 +124,11 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     auth: state.auth
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     login: (email, password) => auth.login(email, password),
     dispatch: () => dispatch
 }, dispatch);

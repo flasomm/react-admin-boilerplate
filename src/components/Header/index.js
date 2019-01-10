@@ -96,11 +96,11 @@ class Header extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     isLoggedIn: () => auth.isLoggedIn(),
     logout: () => auth.logout()
 }, dispatch);

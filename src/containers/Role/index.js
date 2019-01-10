@@ -233,15 +233,15 @@ class Role extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     role: state.roles.item
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     add: () => roles.add(),
-    get: (id) => roles.get(id),
-    update: (state) => roles.update(state),
-    create: (state) => roles.create(state)
+    get: id => roles.get(id),
+    update: state => roles.update(state),
+    create: state => roles.create(state)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Role);

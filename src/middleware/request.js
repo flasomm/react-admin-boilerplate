@@ -19,7 +19,7 @@ import {
 import i18n from 'shared/i18n';
 
 export default function request() {
-    return next => (action) => {
+    return next => action => {
         const {promise, type, ...rest} = action;
 
         if (!promise) return next(action);

@@ -23,14 +23,6 @@ const tokenHasExpired = token => {
     return currentTime > decodedToken.exp;
 };
 
-const decodeToken = token => {
-    const decodedToken = jwt.decode(token);
-    return {
-        user: decodedToken.user,
-        roles: decodedToken.roles
-    };
-};
-
 const loginSuccess = user => ({
     type: LOGIN_SUCCESS,
     payload: user,
@@ -58,7 +50,7 @@ const isLoggedInFailure = () => ({
 export const isLoggedIn = () => dispatch => {
     const token = sessionStorage.getItem('jwt');
     if (token && !tokenHasExpired(token)) {
-        dispatch(isLoggedInSuccess(decodeToken(token)));
+        dispatch(isLoggedInSuccess(jwt.decode(token)));
     } else {
         dispatch(isLoggedInFailure());
     }
@@ -87,7 +79,7 @@ export const login = (email, password) => dispatch => new Promise(resolve => {
             }
             response.json().then(value => {
                 sessionStorage.setItem('jwt', value.token);
-                const token = decodeToken(value.token);
+                const token = jwt.decode(value.token);
                 dispatch(loginSuccess(token));
                 resolve(value);
             });

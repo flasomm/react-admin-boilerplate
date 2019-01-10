@@ -68,12 +68,12 @@ class Breadcrumbs extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     location: state.routing.location
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     isLoggedIn: () => auth.isLoggedIn()
 }, dispatch);
 

@@ -36,7 +36,7 @@ export const getAll = (skip, limit, sortField, sortOrder, searchText) => {
     };
 };
 
-export const get = (roleId) => ({
+export const get = roleId => ({
     type: GET_ROLE,
     promise: fetch(`${config.api.url}/roles/${roleId}`, {
         method: 'GET',
@@ -49,7 +49,7 @@ export const get = (roleId) => ({
     })
 });
 
-export const update = (role) => ({
+export const update = role => ({
     type: UPDATE_ROLE,
     promise: fetch(`${config.api.url}/roles/${role._id}`, {
         method: 'PUT',
@@ -62,7 +62,7 @@ export const update = (role) => ({
     })
 });
 
-export const create = (role) => ({
+export const create = role => ({
     type: CREATE_ROLE,
     promise: fetch(`${config.api.url}/roles`, {
         method: 'POST',
@@ -75,7 +75,7 @@ export const create = (role) => ({
     })
 });
 
-export const remove = (role) => ({
+export const remove = role => ({
     type: DELETE_ROLE,
     promise: fetch(`${config.api.url}/roles/${role[0]}`, {
         method: 'DELETE',

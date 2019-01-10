@@ -26,7 +26,7 @@ class Admin extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     authUser: state.auth.user
 });
 

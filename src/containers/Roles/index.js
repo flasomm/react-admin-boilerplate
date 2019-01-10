@@ -185,14 +185,14 @@ class Roles extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     roles: state.roles.items,
     total: state.roles.total
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     getAll: (skip, limit, sortField, sortOrder, searchText) => roles.getAll(skip, limit, sortField, sortOrder, searchText),
-    delete: (role) => roles.remove(role)
+    delete: role => roles.remove(role)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Roles);

@@ -185,14 +185,14 @@ class Users extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     users: state.users.items,
     total: state.users.total
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     getAll: (skip, limit, sortField, sortOrder, searchText) => users.getAll(skip, limit, sortField, sortOrder, searchText),
-    delete: (user) => users.remove(user)
+    delete: user => users.remove(user)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

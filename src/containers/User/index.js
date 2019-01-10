@@ -117,15 +117,15 @@ class User extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     user: state.users.item
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
+const mapDispatchToProps = dispatch => bindActionCreators({
     add: () => users.add(),
-    get: (id) => users.get(id),
-    update: (state) => users.update(state),
-    create: (state) => users.create(state)
+    get: id => users.get(id),
+    update: state => users.update(state),
+    create: state => users.create(state)
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);
