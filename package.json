@@ -1,5 +1,5 @@
 {
-  "name": "react-starter-boilerplate",
+  "name": "react-admin-boilerplate",
   "version": "0.1.0",
   "description": "React starter kit with webpack v4, react router v4, code splitting and more",
   "main": "index.js",
