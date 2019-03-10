@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2018-Physalix, Fabrice Sommavilla.
- * Licensed under the MIT License (MIT).
- * See https://github.com/flasomm/react-starter-boilerplate
- * @date     22/05/2018
- */
-
 
 const messages = {
     LOGIN_SUCCESS: {

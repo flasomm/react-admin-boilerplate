@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2018-Physalix, Fabrice Sommavilla.
- * Licensed under the MIT License (MIT).
- * See https://github.com/flasomm/react-starter-boilerplate
- * @date     22/05/2018
- */
-
 /* app.js */
 export const REQUEST_NOT_FOUND = 'REQUEST_NOT_FOUND';
 export const REQUEST_DUPLICATE = 'REQUEST_DUPLICATE';

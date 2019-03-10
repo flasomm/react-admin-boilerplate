@@ -1,10 +1,3 @@
-/**
- * @author   Fabrice Sommavilla <fs@physalix.com>
- * @company  Physalix
- * @version  0.1
- * @date     22/05/2018
- */
-
 import {
     REQUEST_FAILURE,
     REQUEST_WARNING,

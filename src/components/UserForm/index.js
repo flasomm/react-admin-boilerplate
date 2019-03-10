@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2018-Physalix, Fabrice Sommavilla.
- * Licensed under the MIT License (MIT).
- * See https://github.com/flasomm/react-starter-boilerplate
- * @date     13/07/2018
- */
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Form, FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';

@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2018-Physalix, Fabrice Sommavilla.
- * Licensed under the MIT License (MIT).
- * See https://github.com/flasomm/react-starter-boilerplate
- * @date  11/09/2018
- */
-
 import {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';

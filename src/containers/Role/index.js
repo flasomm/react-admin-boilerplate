@@ -1,14 +1,3 @@
-/**
- * This program belongs to Physalix.
- * It is considered a trade secret, and is not to be divulged or used
- * by parties who have not received written authorization from the owner.
- *
- * @author   Fabrice Sommavilla <fs@physalix.com>
- * @company  Physalix
- * @version  0.1
- * @date     27/07/2018
- */
-
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';

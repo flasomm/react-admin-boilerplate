@@ -1,10 +1,3 @@
-/**
- * Copyright (c) 2018-Physalix, Fabrice Sommavilla.
- * Licensed under the MIT License (MIT).
- * See https://github.com/flasomm/react-starter-boilerplate
- * @date  18/06/2018
- */
-
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {Grid, Row} from 'react-bootstrap';

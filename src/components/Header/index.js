@@ -1,10 +1,3 @@
-/**
- * @author   Fabrice Sommavilla <fs@physalix.com>
- * @company  Physalix
- * @version  0.1
- * @date     29/05/2018
- */
-
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
